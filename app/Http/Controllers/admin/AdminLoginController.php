@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdminLoginController extends Controller
 {
@@ -11,18 +12,19 @@ class AdminLoginController extends Controller
         return view('admin.login');
     }
 
-    public function authenticate(Request $request){
-        $validator = Validator::make($request->all(),[
+    public function authenticate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
-    ]);
+            'password' => 'required',
+        ]);
 
-    if($validator->passes()){
-
-    }else{
-        return redirect()->route('admin.login')
-        ->withErrors($validator)
-        ->withInput($request->only('email'));
+        if ($validator->passes()) {
+            // Your authentication logic goes here
+        } else {
+            return redirect()->route('admin.login')
+                ->withErrors($validator)
+                ->withInput($request->only('email'));
+        }
     }
-}
 }
