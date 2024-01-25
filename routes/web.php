@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\admin\AdminLoginController;
-
+use App\Http\Controllers\admin\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin'],function(){
 });
 
 Route::group(['middleware' => 'admin.auth'],function(){
-
+    Route::get('/dashboard',[HomeController::class,'index'])->name('admin.dashboard');
 });
 
 });
