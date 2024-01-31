@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\HomeControler;
+use App\Http\Controllers\admin\BrandControler;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +33,9 @@ Route::group(['prefix' => 'admin'],function(){
 Route::group(['middleware' => 'admin.auth'],function(){
     Route::get('/dashboard',[HomeControler::class,'index'])->name('admin.dashboard');
     Route::get('/logout',[HomeControler::class,'logout'])->name('admin.logout');
+
+    //brands Routs
+    Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
 
     });
 
