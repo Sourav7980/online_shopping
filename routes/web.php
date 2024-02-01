@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
+use App\Http\Controllers\admin\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,8 @@ Route::group(['middleware' => 'admin.auth'],function(){
     //brands Routs
     Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
 
+    //Category Routes
+    Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
     });
 
 });
