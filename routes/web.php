@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\FrontController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,11 +18,11 @@ use App\Http\Controllers\admin\CategoryController;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
+}); */
 
-
+Route::get('/',[FrontController::class,'index'])->name('front.home');
 
 Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => 'admin.guest'],function(){
