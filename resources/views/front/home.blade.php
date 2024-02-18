@@ -256,7 +256,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -269,7 +269,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -282,7 +282,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -295,7 +295,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -308,7 +308,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -321,7 +321,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -334,7 +334,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -347,7 +347,7 @@
                 <div class="col-lg-3">
                     <div class="cat-card">
                         <div class="left">
-                            <img src="images/cat-1.jpg" alt="" class="img-fluid">
+                            <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
                         </div>
                         <div class="right">
                             <div class="cat-data">
@@ -370,7 +370,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -391,7 +391,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -412,7 +412,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -433,7 +433,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -454,7 +454,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -475,7 +475,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -496,7 +496,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -517,7 +517,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -548,7 +548,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -569,7 +569,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -590,7 +590,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -611,7 +611,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -632,7 +632,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -653,7 +653,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -674,7 +674,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
@@ -695,7 +695,7 @@
                 <div class="col-md-3">
                     <div class="card product-card">
                         <div class="product-image position-relative">
-                            <a href="" class="product-img"><img class="card-img-top" src="images/product-1.jpg" alt=""></a>
+                            <a href="" class="product-img"><img class="card-img-top" src="{{ asset('font-assets/images/product-1.jpg')}}" alt=""></a>
                             <a class="whishlist" href="222"><i class="far fa-heart"></i></a>                            
 
                             <div class="product-action">
