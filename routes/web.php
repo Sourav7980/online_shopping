@@ -36,11 +36,13 @@ Route::group(['middleware' => 'admin.auth'],function(){
     Route::get('/dashboard',[HomeControler::class,'index'])->name('admin.dashboard');
     Route::get('/logout',[HomeControler::class,'logout'])->name('admin.logout');
 
+    
+    //Category Routes
+    Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
+    
     //brands Routs
     Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
 
-    //Category Routes
-    Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
     });
 
 });

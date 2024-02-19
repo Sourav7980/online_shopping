@@ -1,8 +1,9 @@
 @extends('admin.layout.app')
 
 @section('content')
-<!-- Content Header (Page header) -->
-<section class="content-header">					
+
+				<!-- Content Header (Page header) -->
+				<section class="content-header">					
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
@@ -19,7 +20,6 @@
 				<section class="content">
 					<!-- Default box -->
 					<div class="container-fluid">
-                        <form action="" method="post" id="categoryFrom">
 						<div class="card">
 							<div class="card-body">								
 								<div class="row">
@@ -35,44 +35,31 @@
 											<input type="text" name="slug" id="slug" class="form-control" placeholder="Slug">	
 										</div>
 									</div>
-                                    <div class="col-md-6">
+									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="status">Status</label>
-											<select name="status" id="status" class="from-control">
-                                                <option value="1">Active</option>
-                                                <option value="0">Block</option>
+											<select name="status" id="status" class="form-control">
+												<option value="1">Active</option>
+												<option value="0">Block</option>
+											</select>	
 										</div>
-									</div>									
+									</div>																		
 								</div>
 							</div>							
 						</div>
 						<div class="pb-5 pt-3">
-							<button type="submit" class="btn btn-primary">Create</button>
-							<a href="#" class="btn btn-outline-dark ml-3">Cancel</a>
+							<button class="btn btn-primary">Create</button>
+							<a href="brands.html" class="btn btn-outline-dark ml-3">Cancel</a>
 						</div>
-</form>   
 					</div>
 					<!-- /.card -->
 				</section>
 				<!-- /.content -->
+
 @endsection
 
 @section('customJs')
     <script>
-        $("#categoryFrom").submit(function(event){
-            event.preventDefult();
-
-            $.ajax({
-                url: '',
-                type: 'post',
-                data: '',
-                dataType: 'json',
-                success: function(response){
-
-                },error:function(jqXHR, exception){
-                    console.log("something went wrong");
-                }
-            })
-        });
+        console.log("hello")
     </script>
 @endsection
