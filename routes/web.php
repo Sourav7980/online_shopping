@@ -39,7 +39,8 @@ Route::group(['middleware' => 'admin.auth'],function(){
     
     //Category Routes
     Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
-    
+    Route::post('/categories',[CategoryController::class,'store'])->name('categories.store');
+
     //brands Routs
     Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
 
