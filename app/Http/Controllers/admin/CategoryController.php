@@ -52,18 +52,17 @@ class CategoryController extends Controller
                 $dPath = public_path().'/uploads/category/'.$newImageName;
                 File::copy($sPath,$dPath);
 
-                $dPath = public_path().'/uploads/category/thumb'.$newImageName;
+                /* $dPath = public_path().'/uploads/category/thumb'.$newImageName;
                 /* $img = ImageManager::make($sPath);
                 $img->resize(300, 200);
                 $img->save($dPath); */
-                $manager = new ImageManager(new Driver());
+                /*$manager = new ImageManager(new Driver());
                 $img = $manager->read($sPath);
                 $img->resize(300, 200);
-                $img->save($dPath);
-
-
+                $img->save($dPath); */
                 $category ->image = $newImageName;
                 $category ->save();
+
             }
 
             $request->session()->flash('success','Category added successfully');
@@ -81,12 +80,64 @@ class CategoryController extends Controller
         }
     }
 
-    public function edit() {
-
+    public function edit($categoryId, Request $request) {
+        $category = Category::find($categoryId);
+        if(empty($category)){
+            return redirect()->route('categories.index');
+        }
+        return view('admin.category.edit',compact('category'));
     }
 
-    public function update() {
+    public function update($categoryId, Request $request) {
+        $category = Category::find($categoryId);
 
+        if(empty($category)){
+            return response()->json([
+                'status' => false,
+                'notFound' => true,
+                'message' => 'Category not found'
+            ]);
+        }
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'slug' => 'required|unique:categories,slug,'.$category->id.',id',
+        ]);
+
+        if($validator->passes()){
+
+            $category ->name = $request->name;
+            $category ->slug = $request->slug;
+            $category ->status = $request->status;
+            $category ->save();
+
+            if(!empty($request->image_id)){
+                $tempImage = TempImage::find($request->image_id);
+                $extArray = explode('.',$tempImage->name);
+                $ext=last($extArray);
+
+                $newImageName=$category->id.'.'.$ext;
+                $sPath = public_path().'/temp/'.$tempImage->name;
+                $dPath = public_path().'/uploads/category/'.$newImageName;
+                File::copy($sPath,$dPath);
+
+                $category ->image = $newImageName;
+                $category ->save();
+            }
+
+            $request->session()->flash('success','Category updated successfully');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Category Updated successfully'
+            ]);
+
+        }else{
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     public function destory() {
