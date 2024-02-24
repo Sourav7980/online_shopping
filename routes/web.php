@@ -45,6 +45,7 @@ Route::group(['middleware' => 'admin.auth'],function(){
     Route::post('/categories',[CategoryController::class,'store'])->name('categories.store');
     Route::get('/categories/{create}/edit',[CategoryController::class,'edit'])->name('categories.edit');
     Route::put('/categories/{create}',[CategoryController::class,'update'])->name('categories.update');
+    Route::delete('/categories/{create}',[CategoryController::class,'destory'])->name('categories.delete');
 
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');

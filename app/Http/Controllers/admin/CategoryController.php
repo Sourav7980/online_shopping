@@ -42,15 +42,25 @@ class CategoryController extends Controller
             $category ->status = $request->status;
             $category ->save();
 
+            $oldImage= $category->image;
+
             if(!empty($request->image_id)){
                 $tempImage = TempImage::find($request->image_id);
                 $extArray = explode('.',$tempImage->name);
                 $ext=last($extArray);
 
-                $newImageName=$category->id.'.'.$ext;
+                $newImageName=$category->id.'-'.time().'.'.$ext;
                 $sPath = public_path().'/temp/'.$tempImage->name;
                 $dPath = public_path().'/uploads/category/'.$newImageName;
                 File::copy($sPath,$dPath);
+
+                /* if(!empty($request->image_id)){
+                    $manager = new ImageManager(new Driver());
+                    $image = $manager->read('$sPath');
+                    $img->resize(400, 600);
+                    $dPath = public_path().'/uploads/category/thumb'.$newImageName;
+                    $img->save($dPath);
+                } */
 
                 /* $dPath = public_path().'/uploads/category/thumb'.$newImageName;
                 /* $img = ImageManager::make($sPath);
@@ -62,6 +72,8 @@ class CategoryController extends Controller
                 $img->save($dPath); */
                 $category ->image = $newImageName;
                 $category ->save();
+
+                File::delete(public_path().'/uploads/category'.$oldImage);
 
             }
 
@@ -92,6 +104,8 @@ class CategoryController extends Controller
         $category = Category::find($categoryId);
 
         if(empty($category)){
+            $request->session()->flash('error','Category not found');
+
             return response()->json([
                 'status' => false,
                 'notFound' => true,
@@ -140,7 +154,26 @@ class CategoryController extends Controller
         }
     }
 
-    public function destory() {
+    public function destory($categoryId, Request $request) {
+        $category = Category::find($categoryId);
+        if(empty($category)){
 
+            $request->session()->flash('error','Category not found');
+            return response()->json([
+                'status' => true,
+                'message' => 'Category not found'
+            ]);
+            //return redirect()->route('categories.index');
+        }
+        
+        File::delete(public_path().'/uploads/category'.$category->image);
+        $category->delete();
+
+        $request->session()->flash('success','Category deleted successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Category deleted successfully'
+        ]);
+    
     }
 }

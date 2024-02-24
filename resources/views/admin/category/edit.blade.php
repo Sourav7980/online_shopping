@@ -94,7 +94,7 @@
 
 					if(response["status"]==true){
 
-						window.location.href="{{route('categories.index')}}"
+						window.location.href="{{route('categories.index')}}";
 						$("#name").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
@@ -104,6 +104,9 @@
 						.removeClass('invalid-feedback').html("");
 
 					}else{
+						if(response["notFound"]==true){
+							window.location.href="{{route('categories.index')}}";
+						}
 						var errors= response['errors'];
 					if(errors['name']){
 						$("#name").addClass('is-invalid')
