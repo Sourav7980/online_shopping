@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\TempImagesController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,8 @@ Route::group(['middleware' => 'admin.auth'],function(){
 
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
+
+    Route::get('/register',[AuthController::class,'register'])->name('account.register');
 
     Route::get('/getSlug',function(Request $request){
         $slug = '';
