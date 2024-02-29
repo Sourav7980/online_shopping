@@ -9,6 +9,9 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\TempImagesController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\admin\SettingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +37,7 @@ Route::group(['prefix' => 'admin'],function(){
     
     });
 
-Route::group(['middleware' => 'admin.auth'],function(){
+    Route::group(['middleware' => 'admin.auth'],function(){
     Route::get('/dashboard',[HomeControler::class,'index'])->name('admin.dashboard');
     Route::get('/logout',[HomeControler::class,'logout'])->name('admin.logout');
 
@@ -49,6 +52,12 @@ Route::group(['middleware' => 'admin.auth'],function(){
 
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
+
+    Route::get('/register',[AuthController::class,'register'])->name('account.register');
+
+    //setting-password
+    Route::get('/change-password',[SettingController::class,'ShowChangePasswordForm'])->name('admin.ShowChangePasswordForm');
+    Route::post('/process-change-password',[SettingController::class,'processChangePassword'])->name('admin.processChangePassword');
 
     Route::get('/getSlug',function(Request $request){
         $slug = '';
