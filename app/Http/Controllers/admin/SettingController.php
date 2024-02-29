@@ -23,6 +23,7 @@ class SettingController extends Controller
         ]);
 
         $id = Auth::guard('admin')->user()->id; 
+
         $admin= User::where('id',$id)->first();
 
         if($validator->passes()){
@@ -31,7 +32,7 @@ class SettingController extends Controller
                 return response()->json([
                     'status' => true
                 ]);
-
+            }
                 User::where('id',$id)->update([
                     'password' => Hash::make($request->new_password)
                 ]);
@@ -49,5 +50,4 @@ class SettingController extends Controller
                 ]);
             }
         }
-    }
 }

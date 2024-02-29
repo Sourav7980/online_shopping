@@ -65,7 +65,7 @@ $("#changePasswordForm").submit(function(event){
     $("button[type=submit]").prop('disabled',true);
 
     $.ajax({
-        url: '{{ route("admin.processChangePassword") }}', // Correct route name
+        url: '{{ route("admin.processChangePassword")}}', // Correct route name
         type: 'post',
         data: element.serializeArray(),
         dataType: 'json',
@@ -74,7 +74,7 @@ $("#changePasswordForm").submit(function(event){
 
             if(response["status"]==true){
 
-                window.location.href="{{route('admin.ShowChangePasswordForm')}}";
+                window.location.href="{{ route('admin.ShowChangePasswordForm') }}";
 
             }else{
                 var errors = response['errors'];
