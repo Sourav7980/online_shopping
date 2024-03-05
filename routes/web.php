@@ -60,8 +60,13 @@ use App\Http\Controllers\admin\SettingController;
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
 
-    
+    //brands
+    Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
+    Route::post('/brands',[BrandControler::class,'store'])->name('brands.store');
 
+
+
+    
     //setting-password
     Route::get('/change-password',[SettingController::class,'ShowChangePasswordForm'])->name('admin.ShowChangePasswordForm');
     Route::post('/process-change-password',[SettingController::class,'processChangePassword'])->name('admin.processChangePassword');
@@ -77,8 +82,6 @@ use App\Http\Controllers\admin\SettingController;
         ]);
     })->name('getSlug');
 
-    //brands Routs
-    Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
 
     });
 
