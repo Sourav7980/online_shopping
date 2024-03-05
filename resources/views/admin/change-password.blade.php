@@ -117,7 +117,7 @@ $("#changePasswordForm").submit(function(event){
 
             }
 
-        }, error: function(jqXHR, exception){
+        }, error: function(jQXHR, exception){
             console.log("Something went wrong");
         }
     })

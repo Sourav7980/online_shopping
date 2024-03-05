@@ -28,9 +28,13 @@ use App\Http\Controllers\admin\SettingController;
     return view('welcome');
 }); */
 
-Route::get('/',[FrontController::class,'index'])->name('front.home');
+    Route::get('/',[FrontController::class,'index'])->name('front.home');
 
-Route::group(['prefix' => 'admin'],function(){
+    Route::get('/register',[AuthController::class,'register'])->name('account.register');
+    Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
+
+
+    Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => 'admin.guest'],function(){
 
         Route::get('/login',[AdminLoginController::class,'index'])->name('admin.login');
@@ -56,7 +60,7 @@ Route::group(['prefix' => 'admin'],function(){
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
 
-    Route::get('/register',[AuthController::class,'register'])->name('account.register');
+    
 
     //setting-password
     Route::get('/change-password',[SettingController::class,'ShowChangePasswordForm'])->name('admin.ShowChangePasswordForm');
