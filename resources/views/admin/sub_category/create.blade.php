@@ -28,10 +28,9 @@
 											<select name="category" id="category" class="form-control">
                                                 @if($categories->isNotEmpty())
                                                 @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name}}</option>
-                                                @endforeach
-                                                @endif
-                                                <option value="">Mobile</option>
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+												@endforeach
+												@endif
                                             </select>
 										</div>
 									</div>
