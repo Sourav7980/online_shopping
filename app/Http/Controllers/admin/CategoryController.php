@@ -165,7 +165,7 @@ class CategoryController extends Controller
             ]);
             //return redirect()->route('categories.index');
         }
-        
+
         File::delete(public_path().'/uploads/category'.$category->image);
         $category->delete();
 
@@ -174,6 +174,6 @@ class CategoryController extends Controller
             'status' => true,
             'message' => 'Category deleted successfully'
         ]);
-    
+
     }
 }
