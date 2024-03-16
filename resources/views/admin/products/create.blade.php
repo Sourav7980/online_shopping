@@ -276,5 +276,26 @@
                 }
             });
         });
+
+        Dropzone.autoDiscover = false;
+        const dropzone = $("#image").dropzone({
+
+    url:  "{{ route('temp-images.create') }}",
+    maxFiles: 10,
+    paramName: 'image',
+    addRemoveLinks: true,
+    acceptedFiles: "image/jpeg,image/png,image/gif",
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }, success: function(file, response){
+        //$("#image_id").val(response.image_id);
+        //console.log(response)
+
+        var html= `<input type="hidden" name="image_array[]" value="${response.image_id}">`;
+        $("#image").append(html);
+    }
+});
     </script>
+
+
 @endsection
