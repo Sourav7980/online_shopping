@@ -71,6 +71,7 @@ use App\Http\Controllers\admin\ProductController;
     Route::delete('/brands/{brand}',[BrandControler::class,'destory'])->name('brands.delete');
 
     //Prtoduct Routes
+    Route::get('/products',[ProductController::class,'index'])->name('products.index');
     Route::get('/products/create',[ProductController::class,'create'])->name('products.create');
     Route::post('/products',[ProductController::class,'store'])->name('products.store');
 

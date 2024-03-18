@@ -11,10 +11,18 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\TempImage;
+use Illuminate\Support\Facades\File;
 
 
 class ProductController extends Controller
 {
+    public function index(){
+        $products = Product::latest('id')->with('product_images')->paginate();
+        //dd($products);
+        $data['products'] = $products;
+        return view('admin.products.list', $data);
+    }
+
     public function create(){
         $data = [];
         $categories = Category::orderBy('name','ASC')->get();
@@ -65,7 +73,7 @@ class ProductController extends Controller
 
             // save gallery pics
 
-            if(!empty($request->image_array)){
+             if(!empty($request->image_array)){
                 foreach($request->image_array as $temp_image_id){
 
                     $tempImageInfo = TempImage::find($temp_image_id);
@@ -77,12 +85,46 @@ class ProductController extends Controller
                     $productImage->image = 'NULL';
                     $productImage->save();
 
+
                     $imageName = $product->id.'-'.$productImage->id.'-'.time().'.'.$ext;
+                    $sPath = public_path().'/temp/'.$tempImageInfo->name;
+                    $dPath = public_path().'/uploads/products/'.$imageName;
+                    File::copy($sPath,$dPath);
+
+                    $productImage ->image = $imageName;
+                    $productImage ->save();
+
+                    /* $imageName = $product->id.'-'.$productImage->id.'-'.time().'.'.$ext;
                     $productImage->image = $imageName;
-                    $productImage->save();
+                    $productImage->save() */;
 
                 }
-            }
+
+               // $oldImage= $product->image;
+
+            /* if(!empty($request->image_array)){
+                foreach($request->image_array as $temp_image_id){
+
+                    $tempImage = TempImage::find($request->image_id);
+                    $extArray = explode('.',$tempImageInfo->name);
+                    $ext=last($extArray);
+
+                    $productImage = new ProductImage();
+                    $productImage->product_id = $product->id;
+                    $productImage->image = 'NULL';
+                    $productImage->save();
+
+                    //$newImageName=$product->id.'-'.time().'.'.$ext;
+                    $imageName = $product->id.'-'.$productImage->id.'-'.time().'.'.$ext;
+                    $sPath = public_path().'/temp/'.$tempImage->name;
+                    $dPath = public_path().'/uploads/products/'.$imageName;
+                    File::copy($sPath,$dPath);
+
+                    $productImage ->image = $imageName;
+                    $productImage ->save();
+                }
+
+            } */
 
             $request->session()->flash('success','Product added succesfully');
 
@@ -97,6 +139,7 @@ class ProductController extends Controller
                 'status' => false,
                 'errors' => $validator->errors()
             ]);
+            }
         }
     }
 }

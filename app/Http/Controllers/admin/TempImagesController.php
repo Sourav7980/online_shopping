@@ -23,12 +23,6 @@ class TempImagesController extends Controller
 
             $image->move(public_path().'/temp',$newName);
 
-            //Generated thumbnail
-            /* $sourcePath = public_path().'/temp/'.$newName;
-            $desPath = public_path().'/temp/thumb/'.$newName;
-            $image= Image::make($sourcePath);
-            $image->fit(300,275);
-            $image->save($desPath); */
 
             return response()->json([
                 'status' => true,

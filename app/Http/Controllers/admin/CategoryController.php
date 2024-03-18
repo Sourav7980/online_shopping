@@ -54,22 +54,6 @@ class CategoryController extends Controller
                 $dPath = public_path().'/uploads/category/'.$newImageName;
                 File::copy($sPath,$dPath);
 
-                /* if(!empty($request->image_id)){
-                    $manager = new ImageManager(new Driver());
-                    $image = $manager->read('$sPath');
-                    $img->resize(400, 600);
-                    $dPath = public_path().'/uploads/category/thumb'.$newImageName;
-                    $img->save($dPath);
-                } */
-
-                /* $dPath = public_path().'/uploads/category/thumb'.$newImageName;
-                /* $img = ImageManager::make($sPath);
-                $img->resize(300, 200);
-                $img->save($dPath); */
-                /*$manager = new ImageManager(new Driver());
-                $img = $manager->read($sPath);
-                $img->resize(300, 200);
-                $img->save($dPath); */
                 $category ->image = $newImageName;
                 $category ->save();
 
