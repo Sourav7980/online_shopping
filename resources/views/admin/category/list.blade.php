@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Content Header (Page header) -->
-<section class="content-header">					
+<section class="content-header">
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
@@ -30,18 +30,18 @@
 								<div class="card-tools">
 									<div class="input-group input-group" style="width: 250px;">
 										<input value="{{ Request::get('keyword') }}" type="text" name="keyword" class="form-control float-right" placeholder="Search">
-					
+
 										<div class="input-group-append">
 										  <button type="submit" class="btn btn-default">
 											<i class="fas fa-search"></i>
 										  </button>
 										</div>
-									  </div>
-								</div>
+									</div>
+                                </div>
                         </div>
                     </form>
-							
-							<div class="card-body table-responsive p-0">								
+
+							<div class="card-body table-responsive p-0">
 								<table class="table table-hover text-nowrap">
 									<thead>
 										<tr>
@@ -91,7 +91,7 @@
                                         </tr>
                                         @endif
 									</tbody>
-								</table>										
+								</table>
 							</div>
 							<div class="card-footer clearfix">
                                 {{ $categories->links()}}
@@ -118,7 +118,7 @@
 			var newUrl = url.replace("ID",id)
 
 			if(confirm("Are you sure you want to delete")){
-				$.ajax({	
+				$.ajax({
 				url: newUrl,
 				type: 'delete',
 				data: {},

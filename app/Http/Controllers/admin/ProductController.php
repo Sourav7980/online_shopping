@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::latest('id')->with('product_images')->paginate();
-        //dd($products);
+    public function index(Request $request){
+        $products = Product::latest('id')->with('product_images');
+        if($request->get('keyword') != ""){
+            $products = $products->where('title','like','%'.$request->get('keyword').'%');
+        }
+        $products = $products->paginate();
+
         $data['products'] = $products;
         return view('admin.products.list', $data);
     }
