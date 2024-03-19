@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TempImage;
+use Intervention\Image\Facades\Image;
+
 
 class TempImagesController extends Controller
 {
@@ -21,9 +23,11 @@ class TempImagesController extends Controller
 
             $image->move(public_path().'/temp',$newName);
 
+
             return response()->json([
                 'status' => true,
                 'image_id' => $tempImage->id,
+                'ImagePath' => asset('/temp/'.$newName),
                 'message' => 'Image Uploaded successfuly'
             ]);
 

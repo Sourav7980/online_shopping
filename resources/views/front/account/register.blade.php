@@ -15,7 +15,7 @@
     <section class=" section-10">
         <div class="container">
             <div class="login-form">    
-                <form action="" method="post" name="registrationForm" id="registrationForm">
+                <form action="{{url('/register')}}" method="POST" name="registrationForm" id="registrationForm">
                     <h4 class="modal-title">Register Now</h4>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Name" id="name" name="name">
