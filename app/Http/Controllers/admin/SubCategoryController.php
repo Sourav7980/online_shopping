@@ -4,12 +4,25 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {  
-    public function create() {
+
+    public function index(Request $request) {
+        $subCategories= SubCategory::select('sub_categories.*','categories.name as categoryName')
+                                    ->latest('id')
+                                    ->leftJoin('categories','categories.id','sub_categories.categories_id');
+        if(!empty($request->get('keyword'))){
+            $subCategories= $subCategories->where('name','like','%'.$request->get('keyword').'%');
+        }
+
+        $subCategories= $subCategories-> paginate(10);
+        return view('admin.sub_category.list',compact('subCategories'));
+    }
+public function create() {
         $categories = Category::orderBy('name','ASC')->get();
         $data['categories'] = $categories;
         return view('admin.sub_category.create',$data);
@@ -24,6 +37,19 @@ class SubCategoryController extends Controller
         ]);
 
         if($validator->passes()) {
+            $subCategory = new SubCategory();
+            $subCategory->name = $request->name;
+            $subCategory->Slug = $request->name;
+            $subCategory->Status = $request->name;
+            $subCategory->category_id = $request->name;
+            $subCategory->save();
+
+            $request->session()->flash('success','Sub Category create successfully.');
+
+            return response([
+                'status' => true,
+                'message' => 'Sub Category create successfully.'
+            ]);
 
         }else{
             return response([

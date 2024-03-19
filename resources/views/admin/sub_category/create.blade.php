@@ -27,6 +27,7 @@
 										<div class="mb-3">
 											<label for="name">Category</label>
 											<select name="category" id="category" class="form-control">
+												<option value="">Select of Category</option>
                                                 @if($categories->isNotEmpty())
                                                 @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -93,18 +94,19 @@ $("#subCategoryForm").submit(function(event){
 				success: function(response){
 					$("button[type=submit]").prop('disabled',false);
 
-					if(response["status"]==true){
+					if(response["status"]==true) {
 
-						window.location.href="{{route('categories.index')}}"
-						$("#name").removeClass('is-invalid')
-						.siblings('p')
-						.removeClass('invalid-feedback').html("");
+					//	window.location.href="{{route('categories.index') }}";
 
-						$("#slug").removeClass('is-invalid')
-						.siblings('p')
-						.removeClass('invalid-feedback').html("");
+					//	$("#name").removeClass('is-invalid')
+					//	.siblings('p')
+					//	.removeClass('invalid-feedback').html("");
 
-					}else{
+					//	$("#slug").removeClass('is-invalid')
+					//	.siblings('p')
+					//	.removeClass('invalid-feedback').html("");
+
+					} else {
 						var errors= response['errors'];
 					if(errors['name']){
 						$("#name").addClass('is-invalid')
@@ -125,7 +127,28 @@ $("#subCategoryForm").submit(function(event){
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 					}
+
+					
+					if(errors['slug']){
+						$("#slug").addClass('is-invalid')
+						.siblings('p')
+						.addClass('invalid-feedback').html(errors['slug']);
+					}else{
+						$("#slug").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
 					}
+
+					if(errors['category']){
+						$("#category").addClass('is-invalid')
+						.siblings('p')
+						.addClass('invalid-feedback').html(errors['category']);
+					}else{
+						$("#slug").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
+					}
+					}	
 
 				}, error: function(jqXHR, exception){
 					console.log("Something went wrong");
