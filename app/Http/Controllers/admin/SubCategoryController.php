@@ -15,7 +15,7 @@ class SubCategoryController extends Controller
     }
 
     public function store(Request $request) {
-        $validator = Validator::make($request->all(),[
+        $validator = validator::make($request->all(),[
             'name' => 'required',
             'slug' => 'required|unique:table:sub_categories',
             'category' => 'required',
