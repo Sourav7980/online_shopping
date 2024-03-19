@@ -104,32 +104,6 @@ class ProductController extends Controller
 
                 }
 
-               // $oldImage= $product->image;
-
-            /* if(!empty($request->image_array)){
-                foreach($request->image_array as $temp_image_id){
-
-                    $tempImage = TempImage::find($request->image_id);
-                    $extArray = explode('.',$tempImageInfo->name);
-                    $ext=last($extArray);
-
-                    $productImage = new ProductImage();
-                    $productImage->product_id = $product->id;
-                    $productImage->image = 'NULL';
-                    $productImage->save();
-
-                    //$newImageName=$product->id.'-'.time().'.'.$ext;
-                    $imageName = $product->id.'-'.$productImage->id.'-'.time().'.'.$ext;
-                    $sPath = public_path().'/temp/'.$tempImage->name;
-                    $dPath = public_path().'/uploads/products/'.$imageName;
-                    File::copy($sPath,$dPath);
-
-                    $productImage ->image = $imageName;
-                    $productImage ->save();
-                }
-
-            } */
-
             $request->session()->flash('success','Product added succesfully');
 
             return response()->json([
@@ -145,5 +119,18 @@ class ProductController extends Controller
             ]);
             }
         }
+    }
+
+    public function edit($id, Request $request){
+
+        $product = Product::find($id);
+        $data = [];
+        $data['product'] = $product;
+        $categories = Category::orderBy('name','ASC')->get();
+        $brands = Brand::orderBy('name','ASC')->get();
+        $data['categories'] = $categories;
+        $data['brands'] = $brands;
+
+        return view('admin.products.edit',$data);
     }
 }
