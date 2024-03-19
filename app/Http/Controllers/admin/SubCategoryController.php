@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {  
@@ -15,7 +16,7 @@ class SubCategoryController extends Controller
     }
 
     public function store(Request $request) {
-        $validator = validator::make($request->all(),[
+        $validator = Validator::make($request->all(),[
             'name' => 'required',
             'slug' => 'required|unique:table:sub_categories',
             'category' => 'required',
