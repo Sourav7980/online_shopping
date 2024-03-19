@@ -57,6 +57,7 @@ use App\Http\Controllers\admin\SettingController;
 
     //Sub Category Routes
     Route::get('/sub-categories/create',[SubCategoryController::class,'create'])->name('sub-categories.create');
+    Route::post('/sub-categories',[SubCategoryController::class,'store'])->name('sub-categories.store');
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
 

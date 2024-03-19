@@ -13,4 +13,22 @@ class SubCategoryController extends Controller
         $data['categories'] = $categories;
         return view('admin.sub_category.create',$data);
     }
+
+    public function store(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'slug' => 'required|unique:table:sub_categories',
+            'category' => 'required',
+            'status' => 'required'
+        ]);
+
+        if($validator->passes()) {
+
+        }else{
+            return response([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+    }
 }
