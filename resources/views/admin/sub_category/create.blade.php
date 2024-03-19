@@ -25,15 +25,15 @@
 								<div class="row">
                                     <div class="col-md-12">
 										<div class="mb-3">
-											<label for="name">Category</label>
+										<label for="category">Category</label>
 											<select name="category" id="category" class="form-control">
-												<option value="">Select of Category</option>
-                                                @if($categories->isNotEmpty())
-                                                @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-												@endforeach
-												@endif
-                                            </select>
+    											<option value="">Select a Category</option>
+    											@forelse($categories as $category)
+        										<option value="{{ $category->id }}">{{ $category->name }}</option>
+    											@empty
+        										<option value="" disabled>No categories available</option>
+    											@endforelse
+												</select>
 											<p></p>
 										</div>
 									</div>
