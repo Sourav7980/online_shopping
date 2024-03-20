@@ -1,19 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
-use App\Http\Controllers\admin\AdminLoginController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
-use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\SubCategoryController;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\admin\TempImagesController;
-use Illuminate\Http\Request;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\admin\ProductSubCategoryController;
-use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\SettingController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\AdminLoginController;
+use App\Http\Controllers\admin\TempImagesController;
+use App\Http\Controllers\admin\SubCategoryController;
+use App\Http\Controllers\admin\ProductImageController;
+use App\Http\Controllers\admin\ProductSubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +78,10 @@ use App\Http\Controllers\admin\ProductController;
     Route::get('/products/create',[ProductController::class,'create'])->name('products.create');
     Route::post('/products',[ProductController::class,'store'])->name('products.store');
     Route::get('/products/{product}/edit',[ProductController::class,'edit'])->name('products.edit');
-
+    Route::put('/products/{product}',[ProductController::class,'update'])->name('products.update');
+    Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
     Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
+    Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
 
 
 

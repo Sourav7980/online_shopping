@@ -56,6 +56,13 @@
                                 <h2 class="h4 mb-3">Media</h2>
                                 <div id="image" class="dropzone dz-clickable">
                                     <div class="dz-message needsclick">
+                                        {{-- @if ($productImages->inNotEmpty())
+                                            @foreach ($productImages as $image)
+                                            <div class="card">
+                                                <input type="hidden" name="image_array[]" value="{{ $image->id }}">;
+                                            </div>
+                                            @endforeach
+                                        @endif --}}
                                         <br>Drop files here or click to upload.<br><br>
                                     </div>
                                 </div>
@@ -69,7 +76,7 @@
                                         <div class="mb-3">
                                             <label for="price">Price</label>
                                             <input type="text" name="price" id="price" class="form-control"
-                                                placeholder="Price" {{ $product->price }}>
+                                                placeholder="Price" value="{{ $product->price }}">
                                             <p class="error"></p>
                                         </div>
                                     </div>
@@ -77,8 +84,8 @@
                                         <div class="mb-3">
                                             <label for="compare_price">Compare at Price</label>
                                             <input type="text" name="compare_price" id="compare_price"
-                                                class="form-control" placeholder="Compare Price">
-                                            <p class="text-muted mt-3" value="{{ $product->compare_price }}">
+                                                class="form-control" placeholder="Compare Price" value="{{ $product->compare_price }}">
+                                            <p class="text-muted mt-3" >
                                                 To show a reduced price, move the product’s original price into Compare at
                                                 price. Enter a lower value into Price.
                                             </p>
@@ -157,7 +164,11 @@
                                     <label for="category">Sub category</label>
                                     <select name="sub_category" id="sub_category" class="form-control">
                                         <option value="">Select Sub-Category</option>
-
+                                        @if ($subCategories->isNotEmpty())
+                                            @foreach ($subCategories as $subCategory)
+                                                <option {{ ($product->sub_category_id == $subCategory->id) ? 'selected' : '' }} value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -170,7 +181,7 @@
                                         <option value="">Select Brands</option>
                                         @if ($brands->isNotEmpty())
                                             @foreach ($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                <option {{ ($product->brand_id == $brand->id) ? 'selected' : '' }} value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -182,8 +193,8 @@
                                 <h2 class="h4 mb-3">Featured product</h2>
                                 <div class="mb-3">
                                     <select name="is_featured" id="is_featured" class="form-control">
-                                        <option value="No">No</option>
-                                        <option value="Yes">Yes</option>
+                                        <option {{ ($product->is_featured == 'No') ? 'selected' : '' }} value="No">No</option>
+                                        <option {{ ($product->is_featured == 'Yes') ? 'selected' : '' }} value="Yes">Yes</option>
                                     </select>
                                     <p class="error"></p>
                                 </div>
@@ -193,7 +204,7 @@
                 </div>
 
                 <div class="pb-5 pt-3">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                     <a href="{{ route('products.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
                 </div>
             </div>
@@ -229,8 +240,8 @@
             var formArray = $(this).serializeArray();
             $("button[type='submit']").prop('disabled', true);
             $.ajax({
-                url: '{{ route("products.store")}}',
-                type: 'post',
+                url: '{{ route("products.update",$product->id)}}',
+                type: 'put',
                 data: formArray,
                 dataType: 'json',
                 success: function(response) {
@@ -283,8 +294,10 @@
         const dropzone = $("#image").dropzone({
 
     url:  "{{ route('temp-images.create') }}",
+    //temp-images.create
     maxFiles: 10,
     paramName: 'image',
+    //params: {'product_id': '{{ $product->id }}'},
     addRemoveLinks: true,
     acceptedFiles: "image/jpeg,image/png,image/gif",
     headers: {
