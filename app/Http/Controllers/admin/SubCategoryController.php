@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
-{  
+{
 
     public function index(Request $request) {
         $subCategories= SubCategory::select('sub_categories.*','categories.name as categoryName')
@@ -22,7 +22,7 @@ class SubCategoryController extends Controller
         $subCategories= $subCategories-> paginate(10);
         return view('admin.sub_category.list',compact('subCategories'));
     }
-public function create() {
+    public function create() {
         $categories = Category::orderBy('name','ASC')->get();
         $data['categories'] = $categories;
         return view('admin.sub_category.create',$data);
