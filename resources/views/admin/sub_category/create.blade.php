@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Content Header (Page header) -->
-<section class="content-header">					
+<section class="content-header">
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
@@ -21,7 +21,7 @@
 					<div class="container-fluid">
 						<form action=""name="subCategoryForm" id="subCategoryForm">
 						<div class="card">
-							<div class="card-body">								
+							<div class="card-body">
 								<div class="row">
                                     <div class="col-md-12">
 										<div class="mb-3">
@@ -40,16 +40,16 @@
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="name">Name</label>
-											<input type="text" name="name" id="name" class="form-control" 
-											placeholder="Name">	
+											<input type="text" name="name" id="name" class="form-control"
+											placeholder="Name">
 											<p></p>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="Slug">Slug</label>
-											<input type="text" readonly name="slug" id="slug" class="form-control" 
-											placeholder="Slug">	
+											<input type="text" readonly name="slug" id="slug" class="form-control"
+											placeholder="Slug">
 											<p></p>
 										</div>
 									</div>
@@ -60,15 +60,15 @@
 													<option value="1">Active</option>
 													<option value="0">Block</option>
 												</select>
-												<p></p>	
+												<p></p>
 										</div>
-									</div>										
+									</div>
 								</div>
-							</div>							
+							</div>
 						</div>
 						<div class="pb-5 pt-3">
 							<button type="submit" class="btn btn-primary">Create</button>
-							<a href="subcategory.html" class="btn btn-outline-dark ml-3">Cancel</a>
+							<a href="{{ route('sub-categories.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
 						</div>
 					</form>
 					</div>
@@ -79,7 +79,7 @@
 
 @section('customJs')
     <script>
-		
+
 $("#subCategoryForm").submit(function(event){
 			event.preventDefault();
 
@@ -132,7 +132,7 @@ $("#subCategoryForm").submit(function(event){
 						.removeClass('invalid-feedback').html("");
 					}
 
-					
+
 					if(errors['slug']){
 						$("#slug").addClass('is-invalid')
 						.siblings('p')
@@ -152,7 +152,7 @@ $("#subCategoryForm").submit(function(event){
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 					}
-					}	
+					}
 
 				}, error: function(jqXHR, exception){
 					console.log("Something went wrong");

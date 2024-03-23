@@ -10,7 +10,7 @@
 								<h1>Sub Categories</h1>
 							</div>
 							<div class="col-sm-6 text-right">
-								<a href="{{ route('categories.create')}}" class="btn btn-primary">New Category</a>
+								<a href="{{ route('sub-categories.create')}}" class="btn btn-primary">New Category</a>
 							</div>
 						</div>
 					</div>
@@ -25,7 +25,7 @@
 						<div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <button type="button" onclick="window.location.href='{{route("categories.index")}}'" class="btn btn-default btn-sm">Reset</button>
+                                    <button type="button" onclick="window.location.href='{{route("sub-categories.create")}}'" class="btn btn-default btn-sm">Reset</button>
                                 </div>
 								<div class="card-tools">
 									<div class="input-group input-group" style="width: 250px;">
