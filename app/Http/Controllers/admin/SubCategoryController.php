@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\Return_;
 
 class SubCategoryController extends Controller
 {
@@ -62,5 +63,23 @@ class SubCategoryController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+    }
+
+    public function edit($id, Request $request) {
+
+        $subCategory = SubCategory::find($id);
+        if(empty($subCategory)) {
+            $request->session()->flash('error','Record not found');
+           return redirect()->route('sub-categories.index'); 
+        }
+
+        $categories = Category::orderBy('name', 'ASC')->get();
+        $data['categories'] = $categories;
+        $data['subCategory'] = $subCategory;
+        return view('admin.sub_category.edit', $data);
+    }
+
+    public function update($id, Request $request) {
+        
     }
 }
