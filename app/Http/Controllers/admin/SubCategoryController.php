@@ -143,7 +143,7 @@ class SubCategoryController extends Controller
         ]);
     }
 
-    public function destory($id, Request $request) {
+/*     public function destory($id, Request $request) {
         $subCategory = SubCategory::find($id);
         if(empty($subCategory)){
 
@@ -161,6 +161,28 @@ class SubCategoryController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Sub Category deleted successfully'
+        ]);
+
+    } */
+
+    public function destory($id, Request $request) {
+        $subCategory = SubCategory::find($id);
+        if(empty($subCategory)){
+
+            $request->session()->flash('error','Category not found');
+            return response()->json([
+                'status' => true,
+                'message' => 'Category not found'
+            ]);
+            //return redirect()->route('categories.index');
+        }
+
+        $subCategory->delete();
+
+        $request->session()->flash('success','Category deleted successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Category deleted successfully'
         ]);
 
     }
