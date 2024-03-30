@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Content Header (Page header) -->
-<section class="content-header">					
+<section class="content-header">
 					<div class="container-fluid my-2">
 						<div class="row mb-2">
 							<div class="col-sm-6">
@@ -22,34 +22,34 @@
 					<div class="container-fluid">
 						<form action="" id="createBrandForm" name="createBrandForm" method="post">
 						<div class="card">
-							<div class="card-body">								
+							<div class="card-body">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="name">Name</label>
-											<input type="text" name="name" id="name" class="form-control" placeholder="Name">	
+											<input type="text" name="name" id="name" class="form-control" placeholder="Name">
 											<p></p>
 										</div>
-										
+
 									</div>
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="email">Slug</label>
-											<input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug">	
+											<input type="text" readonly name="slug" id="slug" class="form-control" placeholder="Slug">
 											<p></p>
-										</div>										
-									</div>	
+										</div>
+									</div>
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label for="status">Status</label>
 											<select name="status" id="status" class="form-control">
 												<option value="1">Active</option>
 												<option value="0">Block</option>
-											</select>	
+											</select>
 										</div>
-									</div>											
+									</div>
 								</div>
-							</div>							
+							</div>
 						</div>
 						<div class="pb-5 pt-3">
 							<button type="submit" class="btn btn-primary">Create</button>
@@ -79,7 +79,7 @@
 
 					if(response["status"]==true){
 
-						/* window.location.href="{{route('categories.index')}}"
+						window.location.href="{{route('brands.index')}}"
 						$("#name").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
@@ -87,7 +87,7 @@
 						$("#slug").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
- */
+
 					}else{
 						var errors= response['errors'];
 					if(errors['name']){
@@ -132,6 +132,6 @@
 					}
 				}
 			});
-		});		
+		});
     </script>
 @endsection

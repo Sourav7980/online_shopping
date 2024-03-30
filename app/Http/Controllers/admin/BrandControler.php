@@ -20,7 +20,7 @@ class BrandControler extends Controller
         $brands = $brands->paginate(10);
         return view('admin.brands.list',compact('brands'));
     }
-    
+
     public function create(){
         return view('admin.brands.create');
     }
@@ -37,6 +37,8 @@ class BrandControler extends Controller
             $brand->slug = $request->slug;
             $brand->status = $request->status;
             $brand->save();
+
+            $request->session()->flash('success','Brand Added successfully');
 
             return response()->json([
                 'status' => true,
@@ -66,14 +68,14 @@ class BrandControler extends Controller
 
         if(empty($brand)){
             $request->session()->flash('error','Record not found');
-            
+
             return response()->json([
                 'status' => false,
                 'notFound' => true,
                 'message' => 'Brand not Found'
             ]);
         }
-        
+
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'slug' => 'required|unique:brands,slug,'.$brand->id.',id',
@@ -111,7 +113,7 @@ class BrandControler extends Controller
             ]);
             //return redirect()->route('categories.index');
         }
-        
+
         $brand->delete();
 
         $request->session()->flash('success','Category deleted successfully');
@@ -119,6 +121,6 @@ class BrandControler extends Controller
             'status' => true,
             'message' => 'Category deleted successfully'
         ]);
-    
+
     }
 }

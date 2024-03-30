@@ -87,8 +87,8 @@ $("#subCategoryForm").submit(function(event){
 			$("button[type=submit]").prop('disabled',true);
 
 			$.ajax({
-				url:'{{ route("sub-categories.update",$subCategory->id) }}',
-				type: 'post',
+				url:'{{ route("sub-categories.update", $subCategory->id) }}',
+				type: 'put',
 				data: element.serializeArray(),
 				dataType: 'json',
 				success: function(response){
@@ -111,6 +111,12 @@ $("#subCategoryForm").submit(function(event){
 						.removeClass('invalid-feedback').html("");
 
 					} else {
+
+                        if(response['notFound'] == true){
+                            window.location.href="{{ route('sub-categories.index')}}";
+                            return false;
+                        }
+
 						var errors= response['errors'];
 					if(errors['name']){
 						$("#name").addClass('is-invalid')
