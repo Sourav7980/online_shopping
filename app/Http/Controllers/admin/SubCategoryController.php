@@ -81,5 +81,44 @@ class SubCategoryController extends Controller
 
     public function update($id, Request $request) {
         
+        $subCategory = SubCategory::find($id);
+        
+        if(empty($subCategory)) {
+            $request->session()->flash('error','Record not found');
+            return response([
+                'status' => false,
+                'notFond' => true
+            ]);
+          // return redirect()->route('sub-categories.index'); 
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            //'slug' => 'required|unique:sub_categories',
+            'slug' => 'required|unique:sub_categories,slug,'.$request->SubCategory->id.',id',
+            'category' => 'required',
+            'status' => 'required'
+        ]);
+
+        if ($validator->passes()) {
+
+            $subCategory->name = $request->name;
+            $subCategory->slug = $request->slug;
+            $subCategory->status = $request->status;
+            $subCategory->category_id = $request->category;
+            $subCategory->save();
+
+            $request->session()->flash('success', 'Sub Category created update successfully.');
+
+            return response([
+                'status' => true,
+                'message' => 'Sub Category update successfully.'
+            ]);
+        } else {
+            return response([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 }
