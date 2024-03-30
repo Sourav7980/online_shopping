@@ -122,6 +122,27 @@ class SubCategoryController extends Controller
         }
     }
 
+    public function destroy($id,Request $request) {
+        $subCategory = SubCategory::find($id);
+
+        if(empty($subCategory)) {
+            $request->session()->flash('error','Record not found');
+            return response([
+                'status' => false,
+                'notFond' => true
+            ]);
+          // return redirect()->route('sub-categories.index');
+        }
+        $subCategory->delete();
+
+        $request->session()->flash('success', 'Sub Category deleted successfully.');
+
+        return response([
+           'status' => true,
+           'message' => 'Sub Category deleted successfully.'
+        ]);
+    }
+
     public function destory($id, Request $request) {
         $subCategory = SubCategory::find($id);
         if(empty($subCategory)){

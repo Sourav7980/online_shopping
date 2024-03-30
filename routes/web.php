@@ -63,9 +63,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/sub-categories/create',[SubCategoryController::class,'create'])->name('sub-categories.create');
     Route::post('/sub-categories',[SubCategoryController::class,'store'])->name('sub-categories.store');
     Route::get('/sub-categories/{subCategory}/edit',[SubCategoryController::class,'edit'])->name('sub-categories.edit');
-    Route::put('/sub-categories/{subCategory}',[SubCategoryController::class,'update'])->name('sub-categories.update');
-    Route::delete('/sub-categories/{subCategory}',[SubCategoryController::class,'destory'])->name('sub-categories.delete');
-
+    Route::put('/sub-categories/{sub-categories}',[SubCategoryController::class,'update'])->name('sub-categories.update');
 
     //temp-images.create
     Route::post('/upload-temp-image',[TempImagesController::class,'create'])->name('temp-images.create');
