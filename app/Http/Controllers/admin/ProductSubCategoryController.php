@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class ProductSubCategoryController extends Controller
 {
     public function index(Request $request){
-        if(empty($request->category_id)){
-            $subCategories = SubCategory::where('category_id',$reqiuest->category_id)
+        if(!empty($request->category_id)){
+            $subCategories = SubCategory::where('category_id',$request->category_id)
         ->orderBy('name','ASC')
         ->get();
 

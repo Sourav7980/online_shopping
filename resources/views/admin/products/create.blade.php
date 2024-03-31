@@ -267,10 +267,9 @@
                 data: {category_id:category_id},
                 dataType: 'json',
                 success: function(response) {
-                    $("#sub_category").find("option").find("option").not(":first").remove();
+                    $("#sub_category").find("option").not(":first").remove();
                     $.each(response["subCategories"], function(key, item) {
-                        $("#sub_category").append(
-                            `<option value = '${item.id}'>${item.name}</option>`)
+                        $("#sub_category").append(`<option = '${item.id}'>${item.name}</option>`)
                     });
                 },
                 error: function() {
