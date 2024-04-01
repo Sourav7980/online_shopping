@@ -29,7 +29,7 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:image:alt" content="" />
 	<meta name="twitter:card" content="summary_large_image" />
-	
+
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('font-assets/css/slick.css')}}" />
 	<link rel="stylesheet" type="text/css" href="{{ asset('font-assets/css/slick-theme.css')}}" />
@@ -45,7 +45,7 @@
 </head>
 <body data-instant-intensity="mousedown">
 
-<div class="bg-light top-header">        
+<div class="bg-light top-header">
 	<div class="container">
 		<div class="row align-items-center py-3 d-none d-lg-flex justify-content-between">
 			<div class="col-lg-4 logo">
@@ -56,7 +56,7 @@
 			</div>
 			<div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
 				<a href="account.php" class="nav-link text-dark">My Account</a>
-				<form action="">					
+				<form action="">
 					<div class="input-group">
 						<input type="text" placeholder="Search For Products" class="form-control" aria-label="Amount (to the nearest dollar)">
 						<span class="input-group-text">
@@ -64,7 +64,7 @@
 					  	</span>
 					</div>
 				</form>
-			</div>		
+			</div>
 		</div>
 	</div>
 </div>
@@ -85,20 +85,31 @@
         			<!-- <li class="nav-item">
           				<a class="nav-link active" aria-current="page" href="index.php" title="Products">Home</a>
         			</li> -->
-
-					<li class="nav-item dropdown">
+                    @if (getCategories()->isNotEmpty())
+                    @foreach (getCategories() as $category)
+                    <li class="nav-item dropdown">
 						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-							Electronics
+							{{ $category->name }}
 						</button>
-						<ul class="dropdown-menu dropdown-menu-dark">
+                        @if ($category->sub_category->isNotEmpty())
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            @foreach ($category->sub_category as $subCategory)
+                            <li><a class="dropdown-item nav-link" href="#">{{ $subCategory->name }}</a></li>
+                            @endforeach
+                        </ul>
+                        @endif
+						{{-- <ul class="dropdown-menu dropdown-menu-dark">
 							<li><a class="dropdown-item nav-link" href="#">Mobile</a></li>
 							<li><a class="dropdown-item nav-link" href="#">Tablets</a></li>
 							<li><a class="dropdown-item nav-link" href="#">Laptops</a></li>
 							<li><a class="dropdown-item nav-link" href="#">Speakers</a></li>
 							<li><a class="dropdown-item nav-link" href="#">Watches</a></li>
-						</ul>
+						</ul> --}}
 					</li>
-					<li class="nav-item dropdown">
+                    @endforeach
+                    @endif
+
+					{{-- <li class="nav-item dropdown">
 						<button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							Men's Fashion
 						</button>
@@ -136,16 +147,16 @@
 							<li><a class="dropdown-item" href="#">Fans</a></li>
 							<li><a class="dropdown-item" href="#">Air Coolers</a></li>
 						</ul>
-					</li>
-					
-					
-      			</ul>      			
-      		</div>   
+					</li> --}}
+
+
+      			</ul>
+      		</div>
 			<div class="right-nav py-0">
 				<a href="cart.php" class="ml-3 d-flex pt-2">
-					<i class="fas fa-shopping-cart text-primary"></i>					
+					<i class="fas fa-shopping-cart text-primary"></i>
 				</a>
-			</div> 		
+			</div>
       	</nav>
   	</div>
 </header>
@@ -173,7 +184,7 @@
 					<h3>Important Links</h3>
 					<ul>
 						<li><a href="about-us.php" title="About">About</a></li>
-						<li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>						
+						<li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>
 						<li><a href="#" title="Privacy">Privacy</a></li>
 						<li><a href="#" title="Privacy">Terms & Conditions</a></li>
 						<li><a href="#" title="Privacy">Refund Policy</a></li>
@@ -187,10 +198,10 @@
 					<ul>
 						<li><a href="#" title="Sell">Login</a></li>
 						<li><a href="#" title="Advertise">Register</a></li>
-						<li><a href="#" title="Contact Us">My Orders</a></li>						
+						<li><a href="#" title="Contact Us">My Orders</a></li>
 					</ul>
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
 	<div class="copyright-area">
