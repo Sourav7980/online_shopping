@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
@@ -32,6 +33,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 }); */
 
     Route::get('/',[FrontController::class,'index'])->name('front.home');
+    Route::get('/shop',[ShopController::class,'index'])->name('front.shop');
+
 
     Route::get('/register',[AuthController::class,'register'])->name('account.register');
     Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
