@@ -130,8 +130,7 @@
                     @php
                         $productImage = $product->product_images->first();
                     @endphp
-                    @endforeach
-                    @endif
+
 
                     <div class="col-md-4">
                         <div class="card product-card">
@@ -164,6 +163,8 @@
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                    @endif
 
 
                     <div class="col-md-12 pt-5">
