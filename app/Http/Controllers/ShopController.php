@@ -55,13 +55,13 @@ class ShopController extends Controller
             if($request->get('sort') == 'latest'){
                 $products = $products->orderBy('id','DESC');
             } else if($request->get('sort') == 'price_asc'){
-                $products = $products->orderBy('id','ASC');
+                $products = $products->orderBy('price','ASC');
             } else{
-                $products = $products->orderBy('id','DESC');
+                $products = $products->orderBy('price','DESC');
             }
         }
 
-        $products = $products->get();
+        $products = $products->paginate(6);
 
         $data['categories'] = $categories;
         $data['brands'] = $brands;

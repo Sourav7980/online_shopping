@@ -100,7 +100,7 @@
                         <div class="col-12 pb-1">
                             <div class="d-flex align-items-center justify-content-end mb-4">
                                 <div class="ml-2">
-                                   
+
                                     <select name="sort" id="sort" class="form-control">
                                         <option value="latest" {{ ($sort == 'latest') ? 'selected' : ''}}>Latest</option>
                                         <option value="price_desc" {{ ($sort == 'price_desc') ? 'selected' : ''}}>Price High</option>
@@ -156,7 +156,8 @@
 
 
                         <div class="col-md-12 pt-5">
-                            <nav aria-label="Page navigation example">
+                            {{ $products->withQueryString()->links() }}
+                            {{-- <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end">
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" tabindex="-1"
@@ -169,7 +170,7 @@
                                         <a class="page-link" href="#">Next</a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </nav> --}}
                         </div>
                     </div>
                 </div>
