@@ -234,7 +234,7 @@
                 data: formArray,
                 dataType: 'json',
                 success: function(response) {
-                    $("button[type='submit']").prop('disabled',false);
+                    //$("button[type='submit']").prop('disabled',false);
                     if(response['status'] == true){
                         $(".error").removeClass('invalid-feedback').html('');
                         $("input[type='text'], select, input[type='number']").removeClass('is-invalid');
@@ -269,7 +269,7 @@
                 success: function(response) {
                     $("#sub_category").find("option").not(":first").remove();
                     $.each(response["subCategories"], function(key, item) {
-                        $("#sub_category").append(`<option = '${item.id}'>${item.name}</option>`)
+                        $("#sub_category").append(`<option value= '${item.id}'>${item.name}</option>`)
                     });
                 },
                 error: function() {

@@ -71,7 +71,7 @@ class ProductController extends Controller
             $product->qty = $request->qty;
             $product->status = $request->status;
             $product->category_id = $request->category;
-            $product->sub_category_id = $request->sub_category_id;
+            $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brand;
             $product->is_featured = $request->is_featured;
             $product->save();

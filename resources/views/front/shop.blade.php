@@ -49,7 +49,7 @@
                                                     <div class="accordion-body">
                                                         <div class="navbar-nav">
                                                             @foreach ($category->sub_category as $subCategory)
-                                                                <a href="{{ route('front.shop', [$category->slug, $subCategory->slug]) }}"
+                                                                <a href="{{ route('front.shop', [$category->slug,$subCategory->slug]) }}"
                                                                     class="nav-item nav-link  {{ $subCategorySelected == $subCategory->id ? 'text-primary' : '' }}">{{ $subCategory->name }}</a>
                                                             @endforeach
                                                         </div>
