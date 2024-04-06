@@ -9,6 +9,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
+use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\CategoryController;
@@ -93,6 +94,14 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
     Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
     Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
+
+    // Page routes
+    Route::get('/pages',[PageController::class,'index'])->name('pages.index');
+    Route::get('/pages/create',[PageController::class,'create'])->name('pages.create');
+    Route::post('/pages',[PageController::class,'store'])->name('pages.store');
+    //Route::get('/brands/{brand}/edit',[BrandControler::class,'edit'])->name('brands.edit');
+    //Route::put('/brands/{brand}',[BrandControler::class,'update'])->name('brands.update');
+    //Route::delete('/brands/{brand}',[BrandControler::class,'destory'])->name('brands.delete');
 
 
 
