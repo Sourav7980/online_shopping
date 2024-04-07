@@ -99,9 +99,9 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/pages',[PageController::class,'index'])->name('pages.index');
     Route::get('/pages/create',[PageController::class,'create'])->name('pages.create');
     Route::post('/pages',[PageController::class,'store'])->name('pages.store');
-    //Route::get('/brands/{brand}/edit',[BrandControler::class,'edit'])->name('brands.edit');
-    //Route::put('/brands/{brand}',[BrandControler::class,'update'])->name('brands.update');
-    //Route::delete('/brands/{brand}',[BrandControler::class,'destory'])->name('brands.delete');
+    Route::get('/pages/{page}/edit',[PageController::class,'edit'])->name('pages.edit');
+    Route::put('/pages/{page}',[PageController::class,'update'])->name('pages.update');
+    Route::delete('/pages/{page}',[PageController::class,'destroy'])->name('pages.delete');
 
 
 
