@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Page;
 use App\Models\Category;
 
 function getCategories(){
@@ -9,5 +10,11 @@ function getCategories(){
     ->where('status',1)
     ->where('showHome','Yes')
     ->get();
+}
+
+
+function staticPages(){
+    $pages = Page::orderBy('name','ASC')->get();
+    return $pages;
 }
 ?>

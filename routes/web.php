@@ -38,6 +38,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'index'])->name('front.shop');
     Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 
+    Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
 
 
     Route::get('/register',[AuthController::class,'register'])->name('account.register');
