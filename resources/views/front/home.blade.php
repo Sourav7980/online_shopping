@@ -87,36 +87,31 @@
                         <h2 class="font-weight-semi-bold m-0">14-Day Return</h2>
                     </div>
                 </div>
-                <div class="col-lg-3 ">
-                    <div class="box shadow-lg">
-                        <div class="fa icon fa-phone-volume text-primary m-0 mr-3"></div>
-                        <h2 class="font-weight-semi-bold m-0">24/7 Support</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section-3">
-        <div class="container">
-            <div class="section-title">
-                <h2>Categories</h2>
-            </div>
-            <div class="row pb-3">
-                @if (getCategories()->isNotEmpty())
-                @foreach (getCategories() as $category)
                 <div class="col-lg-3">
-                    <div class="cat-card">
-                        <div class="left">
-                            @if ($category->image != "")
-                            <img src="{{ asset('uploads/category/'.$category->image) }}" alt="" class="img-fluid">
-                            @endif
-{{--                             <img src="{{ asset('font-assets/images/cat-1.jpg')}}" alt="" class="img-fluid">
- --}}                        </div>
-                        <div class="right">
-                            <div class="cat-data">
-                                <h2>{{ $category->name }}</h2>
-                                {{-- <p>100 Products</p> --}}
-                            </div>
+
+<div class="cat-card">
+
+    <div class="left">
+
+        @if ($category->image != "")
+        <img src="{{ asset('uploads/category/'.$category->image) }}" alt="" class="img-fluid">
+        @endif
+
+    </div>
+
+    <div class="right">
+
+        <div class="cat-data">
+
+            <h2>{{ $category->name }}</h2>
+
+            {{-- <p>100 Products</p> --}}
+
+        </div>
+    </div>
+</div>
+</div>
+
                         </div>
                     </div>
                 </div>
