@@ -41,9 +41,17 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
 
 
-    Route::get('/register',[AuthController::class,'register'])->name('account.register');
-    Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
 
+    Route::group(['prefix' => 'account'],function(){
+        Route::group(['middleware' => 'guest'],function(){
+            Route::get('/login',[AuthController::class,'login'])->name('account.login');
+            Route::get('/register',[AuthController::class,'register'])->name('account.register');
+            Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
+        });
+        Route::group(['middleware' => 'auth'],function(){
+
+        });
+    });
 
     Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => 'admin.guest'],function(){
