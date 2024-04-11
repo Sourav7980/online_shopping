@@ -82,4 +82,21 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('account.login')->with('success','You successfully logged out!');
     }
+
+
+    public function forgotPassword(){
+        return view('front.account.forgot-password');
+    }
+
+    public function processForgotPassword(Request $request){
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->route('front.forgotPassword')
+                ->withInput()->withErrors($validator);
+        }
+
+    }
 }
