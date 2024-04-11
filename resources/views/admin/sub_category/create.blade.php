@@ -183,6 +183,6 @@ $("#subCategoryForm").submit(function(event){
 					}
 				}
 			});
-		})
+		});
     </script>
 @endsection
