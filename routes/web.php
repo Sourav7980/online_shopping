@@ -40,15 +40,24 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
 
+    Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('front.forgotPassword');
+    Route::post('/process-forgot-password',[AuthController::class,'processForgotPassword'])->name('front.processForgotPassword');
+
+
 
 
     Route::group(['prefix' => 'account'],function(){
         Route::group(['middleware' => 'guest'],function(){
             Route::get('/login',[AuthController::class,'login'])->name('account.login');
+            Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
             Route::get('/register',[AuthController::class,'register'])->name('account.register');
             Route::post('/process-register',[AuthController::class,'processRegister'])->name('account.processRegister');
+
         });
         Route::group(['middleware' => 'auth'],function(){
+            Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
+            //Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
+            Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
 
         });
     });
