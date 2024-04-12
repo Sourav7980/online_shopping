@@ -39,6 +39,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
+    Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
+
 
     Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('front.forgotPassword');
     Route::post('/process-forgot-password',[AuthController::class,'processForgotPassword'])->name('front.processForgotPassword');
