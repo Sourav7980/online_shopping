@@ -115,6 +115,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
     Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
     Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
+    Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
+
 
     // Page routes
     Route::get('/pages',[PageController::class,'index'])->name('pages.index');
