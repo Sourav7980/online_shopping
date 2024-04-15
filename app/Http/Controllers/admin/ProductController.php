@@ -74,6 +74,9 @@ class ProductController extends Controller
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brand;
             $product->is_featured = $request->is_featured;
+            $product->short_description = $request->short_description;
+            $product->shipping_returns = $request->shipping_returns;
+            $product->related_products = (!empty($request->related_products)) ? implode(',',$request->related_products): '';
             $product->save();
 
             // save gallery pics
@@ -138,6 +141,13 @@ class ProductController extends Controller
         $productImage = ProductImage::where('product_id',$product->id)->get();
         $subCategories = SubCategory::where('category_id',$product->category_id)->get();
 
+        $relatedProducts = [];
+
+        if($product->related_products !=''){
+            $productArray = explode(',',$product->related_products);
+            $relatedProducts = Product::whereIn('id',$productArray)->with('product_images')->get();
+        }
+
         $data = [];
         $data['product'] = $product;
         $data['subCategories'] = $subCategories;
@@ -146,6 +156,8 @@ class ProductController extends Controller
         $brands = Brand::orderBy('name','ASC')->get();
         $data['categories'] = $categories;
         $data['brands'] = $brands;
+        $data['relatedProducts'] = $relatedProducts;
+
 
         return view('admin.products.edit',$data);
     }
@@ -186,6 +198,9 @@ class ProductController extends Controller
             $product->sub_category_id = $request->sub_category_id;
             $product->brand_id = $request->brand;
             $product->is_featured = $request->is_featured;
+            $product->short_description = $request->short_description;
+            $product->shipping_returns = $request->shipping_returns;
+            $product->related_products = (!empty($request->related_products)) ? implode(',',$request->related_products): '';
             $product->save();
 
             // save gallery pics
@@ -254,6 +269,25 @@ class ProductController extends Controller
             'message' => 'Category deleted successfully'
         ]);
 
+    }
+
+    public function getProducts(Request $request){
+        $tempProduct = [];
+        if($request->term !=""){
+            $products = Product::where('title','like','%'.$request->term.'%')->get();
+
+            if($products != null){
+                foreach ($products as $product){
+                    $tempProduct[] = array('id' => $product->id, 'text' => $product->title);
+
+                }
+            }
+        }
+
+        return response()->json([
+            'tags' => $tempProduct,
+            'status' => true
+        ]);
     }
 
 }

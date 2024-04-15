@@ -43,9 +43,23 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
+                                            <label for="description">Short_Description</label>
+                                            <textarea name="short_description" id="short_description" cols="30" rows="10" class="summernote"
+                                                placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
                                             <label for="description">Description</label>
                                             <textarea name="description" id="description" cols="30" rows="10" class="summernote"
                                                 placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="description">Shipping & Returns</label>
+                                            <textarea name="shipping_returns" id="shipping_returns" cols="30" rows="10" class="summernote"
+                                                placeholder=""></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -122,6 +136,18 @@
                                             <p class="error"></p>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card md-3">
+                            <div class="card-body">
+                                <h2 class="h4 mb-3">Related product</h2>
+                                <div class="mb-3">
+                                <select multiple class="related_product w-100" name="related_products[]" id="related_products">
+
+                                </select>
+                                    <p class="error"></p>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +231,21 @@
 
 @section('customJs')
     <script>
+
+        $('.related_product').select2({
+            ajax: {
+                url: '{{ route("products.getProducts") }}',
+                dataType: 'json',
+                tags: true,
+                multiple: true,
+                minimumInputLength: 3,
+                processResults: function (data) {
+                    return {
+                        results: data.tags
+                    };
+                }
+            }
+        });
         $('#title').change(function() {
             element = $(this);
             $("button[type=submit]").prop('disabled', true);
@@ -300,3 +341,4 @@
 
 
 @endsection
+

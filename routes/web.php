@@ -36,7 +36,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 
     Route::get('/',[FrontController::class,'index'])->name('front.home');
     Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'index'])->name('front.shop');
-    Route::group('/product/{slug}',[ShopController::class,'product'])->name('front.product');
+    Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
     Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
 
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
@@ -115,6 +115,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
     Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
     Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
+    Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
+
 
     // Page routes
     Route::get('/pages',[PageController::class,'index'])->name('pages.index');
