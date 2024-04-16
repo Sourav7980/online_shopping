@@ -42,6 +42,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 
 
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
+    Route::get('/send-contact-email',[FrontController::class,'sendContentEmail'])->name('front.sendContentEmail');
     Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
 
 
