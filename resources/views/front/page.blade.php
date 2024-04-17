@@ -12,63 +12,66 @@
     </div>
 </section>
 @if ($page->slug == 'contact-us')
+
 <section class=" section-10">
-        <div class="container">
-            <div class="section-title mt-5 ">
-                <h2>{{ $page->name }}</h2>
-            </div>   
+    <div class="container">
+        <div class="section-title mt-5 ">
+            <h2>{{ $page->name }}</h2>
         </div>
-    </section>
-    <section>
-        <div class="container">          
-            <div class="row">
-                <div class="col-md-12">
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
                 @if (Session::has('success'))
                 <div class="alart alart-success">
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <div class="col-md-6 mt-3 pe-lg-5">
-                {!! $page->content !!}         
                 </div>
-                </div>   
-                
-                <div class="col-md-6">
-                    <form class="shake" role="form" method="post" id="contactForm" name="contactForm">
-                        <div class="mb-3">
-                            <label class="mb-2" for="name">Name</label>
-                            <input class="form-control" id="name" type="text" name="name"  data-error="Please enter your name">
-                            <p class="help-block with-errors"></p>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="mb-2" for="email">Email</label>
-                            <input class="form-control" id="email" type="email" name="email"  data-error="Please enter your Email">
-                            <p class="help-block with-errors"></p>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="mb-2">Subject</label>
-                            <input class="form-control" id="subject" type="text" name="subject"  data-error="Please enter your message subject">
-                            <p class="help-block with-errors"></p>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="message" class="mb-2">Message</label>
-                            <textarea class="form-control" rows="3" id="message" name="message"  data-error="Write your message"></textarea>
-                            <p class="help-block with-errors"></p>
-                        </div>
-                      
-                        <div class="form-submit">
-                            <button  class="btn btn-dark" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
-                            <div id="msgSubmit" class="h3 text-center hidden"></div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-md-6 mt-3 pe-lg-5">
+                {!! $page->content !!}
+            </div>
+
+            <div class="col-md-6">
+                <form class="shake" role="form" method="post" id="contactForm" name="contactForm">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="mb-2" for="name">Name</label>
+                        <input class="form-control" id="name" type="text" name="name"  data-error="Please enter your name">
+                        <p class="help-block with-errors"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="mb-2" for="email">Email</label>
+                        <input class="form-control" id="email" type="email" name="email"  data-error="Please enter your Email">
+                        <p class="help-block with-errors"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="mb-2">Subject</label>
+                        <input class="form-control" id="subject" type="text" name="subject"  data-error="Please enter your message subject">
+                        <p class="help-block with-errors"></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message" class="mb-2">Message</label>
+                        <textarea class="form-control" rows="3" id="message" name="message"  data-error="Write your message"></textarea>
+                        <p class="help-block with-errors"></p>
+                    </div>
+
+                    <div class="form-submit">
+                        <button  class="btn btn-dark" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @else
 <section class=" section-10">
     <div class="container">
@@ -83,19 +86,19 @@
 
 @section('customJs')
 <script>
-    $("#contactForm");.submit(function(event)) {
+    $("#contactForm").submit(function(event){
         event.preventDefault();
-        $("#form-submit").prop('disabled', true);
+        //$("#form-submit").prop('disabled', true);
         $.ajax({
             url:'{{ route("front.sendContentEmail") }}',
             type: 'post',
             data: $(this).serializeArray(),
             dataType: 'json',
             success: function(response) {
-                $("#form-submit").prop('disabled', false);
-                
+                //$("#form-submit").prop('disabled', false);
+
                 if (response.status == true) {
-                    window.location.href = '{{  route("font.page",$page->slug)}}'
+                    window.location.href = '{{  route("front.page",$page->slug)}}'
                 } else {
                    var errors = response.errors;
                    if (errors.name) {
@@ -133,6 +136,6 @@
                 console.log('Error:', data);
             }
         });
-    }
+    });
 </script>
-@endsection    
+@endsection

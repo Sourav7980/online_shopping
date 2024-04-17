@@ -23,8 +23,6 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-
-
                     <picture>
                         <source media="(max-width: 799px)" srcset="{{ asset('font-assets/images/carousel-2-m.jpg') }}" />
                         <source media="(min-width: 800px)" srcset="{{ asset('font-assets/images/carousel-2.jpg') }}" />
@@ -129,32 +127,7 @@
                 @endforeach
                 @endif
             </section>
-    {{-- <section class="section-3">
-        <div class="container">
-            <div class="section-title">
-                <h2>Categories</h2>
-            </div>
-            <div class="row pb-3">
-                @if (getCategories()->isNotEmpty())
-                    @foreach (getCategories() as $category)
-                        <div class="cat-card">
-                            <div class="left">
-                                @if ($category->image != '')
-                                    <img src="{{ asset('uploads/category/' . $category->image) }}" alt=""
-                                        class="img-fluid">
-                                @endif
-                            </div>
-                            <div class="right">
-                                <div class="cat-data">
-                                    <h2>{{ $category->name }}</h2>
-                                    {{-- <p>100 Products</p> --}}
-                                {{-- </div>
-                            </div>
-                        </div>
-                            @endforeach
-                            @endif
-                        </div>
-    </section> --}}
+
 
     <section class="section-4 pt-5">
         <div class="container">
