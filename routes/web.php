@@ -39,6 +39,10 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
     Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
     Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.addToCart');
+    Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.updateCart');
+    Route::post('/delete-cart',[CartController::class,'deleteItem'])->name('front.deleteItem.cart');
+
+
 
 
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
