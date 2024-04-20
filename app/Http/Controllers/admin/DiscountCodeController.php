@@ -6,17 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class DiscountCodeController extends Controller
-{
-    public function index()
-    {
-        return view('admin.coupons.index'); // Assuming you have a view file named 'index.blade.php' inside 'resources/views/admin/coupons' folder
+class DiscountCodeController extends Controller {
+    public function index() {
+        return view('admin.discount-code');
     }
 
-    public function create()
-    {
+    public function create() {
         return view('admin.coupons.create');
     }
+
 
     public function store(Request $request)
     {
@@ -41,9 +39,7 @@ class DiscountCodeController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        // Your code to fetch and edit the discount code with the given ID
-        return view('admin.coupons.edit', compact('id'));
-    }
+
+
+
 }
