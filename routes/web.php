@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\TempImagesController;
 use Illuminate\Http\Request;
@@ -72,6 +73,10 @@ Route::group(['prefix' => 'admin'],function(){
 
     //brands Routs
     Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
+
+    //Coupon Code Routes
+     Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
+     Route::get('/coupons',[DiscountCodeController::class,'store'])->name('coupons.store');
 
     });
 
