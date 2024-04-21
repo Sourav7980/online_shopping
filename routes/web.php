@@ -75,6 +75,7 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get('/brands/create',[BrandControler::class,'create'])->name('brands.create');
 
     //Coupon Code Routes
+    Route::get('/coupons',[DiscountCodeController::class,'index'])->name('coupons.index');
      Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
      Route::get('/coupons',[DiscountCodeController::class,'store'])->name('coupons.store');
 

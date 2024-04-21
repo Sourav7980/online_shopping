@@ -160,38 +160,68 @@ $(document).ready(function(){
 				success: function(response){
 					$("button[type=submit]").prop('disabled',false);
 
-					if(response["status"]==true){
+					if(response["status"] == true){
 
-						window.location.href="{{route('categories.index')}}"
-						$("#name").removeClass('is-invalid')
+						window.location.href="{{route('coupons.index')}}"
+						$("#code").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 
-						$("#slug").removeClass('is-invalid')
+						$("#amount").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
+
+						$("#starts_at").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
+
+						$("#end_at").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 
 					}else{
 						var errors= response['errors'];
-					if(errors['name']){
-						$("#name").addClass('is-invalid')
+
+					if(errors['code']){
+						$("#code").addClass('is-invalid')
 						.siblings('p')
-						.addClass('invalid-feedback').html(errors['name']);
+						.addClass('invalid-feedback').html(errors['code']);
 					}else{
-						$("#name").removeClass('is-invalid')
+						$("#code").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 					}
 
-					if(errors['slug']){
-						$("#slug").addClass('is-invalid')
+					if(errors['amount']){
+						$("#amount").addClass('is-invalid')
 						.siblings('p')
-						.addClass('invalid-feedback').html(errors['slug']);
+						.addClass('invalid-feedback').html(errors['amount']);
 					}else{
-						$("#slug").removeClass('is-invalid')
+						$("#amount").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 					}
+
+					if(errors['starts_at']){
+						$("#starts_at").addClass('is-invalid')
+						.siblings('p')
+						.addClass('invalid-feedback').html(errors['starts_at']);
+					}else{
+						$("#starts_at").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
+					}
+
+					if(errors['end_at']){
+						$("#end_at").addClass('is-invalid')
+						.siblings('p')
+						.addClass('invalid-feedback').html(errors['end_at']);
+					}else{
+						$("#end_at").removeClass('is-invalid')
+						.siblings('p')
+						.removeClass('invalid-feedback').html("");
+					}
+
 					}
 
 				}, error: function(jqXHR, exception){
