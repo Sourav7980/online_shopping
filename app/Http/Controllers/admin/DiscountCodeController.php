@@ -4,21 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class DiscountCodeController extends Controller {
-    public function index() {
-        return view('admin.discount-code');
+class CategoryController extends Controller
+{
+    public function index(){
+    
     }
 
-    public function create() {
-        return view('admin.coupons.create');
+    public function create(){
+        return view('admin.categories.create');
     }
+    
 
-
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
+    public function store(Request $request){
+        $validator = Validator::make($request->all(),[
             'code' => 'required',
             'type' => 'required',
             'amount' => 'required|numeric',
@@ -38,8 +37,4 @@ class DiscountCodeController extends Controller {
             ]);
         }
     }
-
-
-
-
 }
