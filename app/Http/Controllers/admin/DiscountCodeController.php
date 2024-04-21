@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class DiscountCodeController extends Controller
 {
     public function index(){
     
     }
 
     public function create(){
-        return view('admin.categories.create');
+        return view('admin.coupon.create');
     }
     
 
