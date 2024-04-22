@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\admin\SubCategoryController;
@@ -129,6 +130,13 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
     Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
     Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
+
+    //Shipping route
+    Route::get('/shipping/create',[ShippingController::class,'create'])->name('shpping.create');
+    Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+    Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+    Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+    Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
 
 
     // Page routes
