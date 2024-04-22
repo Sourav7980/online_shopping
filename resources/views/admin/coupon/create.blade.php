@@ -161,8 +161,8 @@ $(document).ready(function(){
 					$("button[type=submit]").prop('disabled',false);
 
 					if(response["status"] == true){
+						window.location.href = "{{ route('coupons.index') }}";
 
-						window.location.href="{{route('coupons.index')}}"
 						$("#code").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
