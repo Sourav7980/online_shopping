@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -87,6 +89,25 @@ class AuthController extends Controller
         return redirect()->route('account.login')->with('success','You successfully logged out!');
     }
 
+    public function orders(){
+        $data = [];
+        $user = Auth::user();
+        $orders = Order::where('user_id',$user->id)->orderBy('created_at','DESC')->get();
+        $data['orders'] = $orders;
+
+        return view('front.account.order',$data);
+    }
+
+    public function orderDetail($id){
+
+        $data = [];
+        $user = Auth::user();
+        $order = Order::where('user_id',$user->id)->where('id',$id)->first();
+        $data['order'] = $order;
+        $orderItem = OrderItem::where('order_id',$id)->get();
+        $data['orderItem'] = $orderItem;
+        return view('front.account.order-detail',$data);
+    }
 
     public function forgotPassword(){
         return view('front.account.forgot-password');
@@ -103,4 +124,10 @@ class AuthController extends Controller
         }
 
     }
+
+    public function changePassword(){
+        return view('front.account.change-password');
+    }
+
+
 }

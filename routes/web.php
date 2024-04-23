@@ -74,8 +74,11 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
         });
         Route::group(['middleware' => 'auth'],function(){
             Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
+            Route::get('/my-order',[AuthController::class,'orders'])->name('account.orders');
+            Route::get('/order-details/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
             //Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
             Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
+            Route::get('/change-password',[AuthController::class,'changePassword'])->name('account.changePassword');
 
         });
     });

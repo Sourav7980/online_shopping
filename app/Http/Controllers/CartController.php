@@ -237,6 +237,7 @@ class CartController extends Controller
 
         if($request->payment_method == 'cod'){
 
+            $discountCodeId = NULL;
             $shipping = 0;
             $discount = 0;
             $subTotal = Cart::subtotal(2,'.','');
@@ -271,6 +272,8 @@ class CartController extends Controller
             $order->shipping = $shipping;
             $order->grand_total = $grandTotal;
             $order->user_id = $user->id;
+            $order->payment_status = 'not paid';
+            $order->status = 'pendding';
             $order->first_name = $request->first_name;
             $order->last_name = $request->last_name;
             $order->email = $request->email;

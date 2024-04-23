@@ -104,10 +104,11 @@
                                 <a href="" class="product-img">
                                     {{-- <img class="card-img-top" src="images/product-1.jpg" alt=""> --}}
                                     @if (!empty($productImage->image))
-                                            <img class="card-img-top " src="{{ asset('uploads/products/' . $productImage->image) }}">
-                                    @else
-                                            <img src="{{ asset('admin-asset/img/photo2.png') }}">
-                                    @endif
+                                        <img
+                                            src="{{ asset('uploads/products/' . $productImage->image) }}">
+                                        @else
+                                        <img  src="{{ asset('admin-asset/img/photo2.png') }}">
+                                        @endif
                                 </a>
 
                                 <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
