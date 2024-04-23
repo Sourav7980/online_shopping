@@ -10,6 +10,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
 use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\CategoryController;
@@ -150,6 +151,11 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/pages/{page}/edit',[PageController::class,'edit'])->name('pages.edit');
     Route::put('/pages/{page}',[PageController::class,'update'])->name('pages.update');
     Route::delete('/pages/{page}',[PageController::class,'destroy'])->name('pages.delete');
+
+    //orders route
+    Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
+    Route::get('/orders/{id}',[OrderController::class,'detail'])->name('orders.detail');
+
 
 
 
