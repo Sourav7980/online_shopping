@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
+use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\BrandControler;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\OrderController;
@@ -160,6 +161,18 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
     Route::get('/orders/{id}',[OrderController::class,'detail'])->name('orders.detail');
     Route::post('/order/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
+
+
+    //Coupon Code Routes
+    Route::get('/coupons',[DiscountCodeController::class,'index'])->name('coupons.index');
+    Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
+    Route::post('/coupons/',[DiscountCodeController::class,'store'])->name('coupons.store');
+    //Route::get('/products/{product}/edit',[ProductController::class,'edit'])->name('products.edit');
+    //Route::put('/products/{product}',[ProductController::class,'update'])->name('products.update');
+    //Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
+    //Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
+    //Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
+    //Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
 
 
     //setting-password
