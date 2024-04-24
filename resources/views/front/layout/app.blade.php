@@ -44,6 +44,8 @@
 
 	<!-- Fav Icon -->
 	<link rel="shortcut icon" type="image/x-icon" href="#" />
+    <meta name="csrf-token" content="{{ csrf_token()}}">
+
 </head>
 <body data-instant-intensity="mousedown">
 
@@ -51,13 +53,17 @@
 	<div class="container">
 		<div class="row align-items-center py-3 d-none d-lg-flex justify-content-between">
 			<div class="col-lg-4 logo">
-				<a href="index.php" class="text-decoration-none">
+				<a href="{{ route('front.home')}}" class="text-decoration-none">
 					<span class="h1 text-uppercase text-primary bg-dark px-2">Online</span>
 					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">SHOP</span>
 				</a>
 			</div>
 			<div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
-				<a href="account.php" class="nav-link text-dark">My Account</a>
+                @if (Auth::check())
+				<a href="{{ route('account.profile')}}" class="nav-link text-dark">My Account</a>
+                @else
+                <a href="{{ route('account.login')}}" class="nav-link text-dark">Login/Register</a>
+                @endif
 				<form action="">
 					<div class="input-group">
 						<input type="text" placeholder="Search For Products" class="form-control" aria-label="Amount (to the nearest dollar)">
@@ -109,7 +115,7 @@
       			</ul>
       		</div>
 			<div class="right-nav py-0">
-				<a href="cart.php" class="ml-3 d-flex pt-2">
+				<a href="{{ route("front.cart")}}" class="ml-3 d-flex pt-2">
 					<i class="fas fa-shopping-cart text-primary"></i>
 				</a>
 			</div>
@@ -186,7 +192,8 @@
 <script src="{{ asset('font-assets/js/custom.js')}}"></script>
 
 
-<script>
+<script type="text/javascript">
+
 window.onscroll = function() {myFunction()};
 
 var navbar = document.getElementById("navbar");
@@ -199,6 +206,29 @@ function myFunction() {
     navbar.classList.remove("sticky");
   }
 }
+
+$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			    }
+		    });
+
+function addToCart(id){
+        $.ajax({
+            url:'{{ route('front.addToCart')}}',
+            type: 'post',
+            data: {id:id},
+            dataType: 'json',
+            success: function(response){
+                if(response.status == true){
+                    window.location.href="{{ route('front.cart')}}";
+                } else {
+                    alert(response.message);
+                }
+
+            }
+        })
+    }
 </script>
 @yield('customJs')
 </body>

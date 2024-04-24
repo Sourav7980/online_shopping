@@ -2,238 +2,368 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Country;
+use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Models\ShippingCharge;
+use App\Models\CustomerAddress;
+use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
-    public function addToCart(){
+    public function addToCart(Request $request){
+        $product = Product::with('product_images')->find($request->id);
 
+        if($product == null){
+            return response()->json([
+                'status' => false,
+                'massage' => 'Product not found'
+            ]);
+        }
+
+        /* $status = true;
+        $message = ''; */
+
+        if(Cart::count() > 0){
+            //echo "Product already in cart";
+
+            $cartContent = Cart::content();
+            $productAlreadyExist = false;
+
+            foreach($cartContent as $item){
+                if($item->id == $product->id){
+                    $productAlreadyExist = true;
+                }
+            }
+
+            if($productAlreadyExist == false){
+                Cart::add($product->id, $product->title, 1, $product->price,['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '']);
+
+                $status = true;
+                $message = '<strong>'.$product->title.'</strong> added in your cart successfully';
+                session()->flash('success',$message);
+            }else{
+                $status = false;
+                $message = $product->title.' already added in cart';
+            }
+
+        } else {
+            Cart::add($product->id, $product->title, 1, $product->price,['productImage' => (!empty($product->product_images)) ? $product->product_images->first() : '']);
+            $status = true;
+            $message = '<strong>'.$product->title.'</strong> added in your cart successfully';
+            //$message = 'Item removed from cart successfully.';
+            session()->flash('success',$message);
+        }
+
+            return response()->json([
+                'status' => $status,
+                'message' => $message
+            ]);
+
+
+        //Cart::add('293ad', 'Product 1', 1, 9.99);
     }
 
     public function cart(){
-        return view('front.cart');
+        $cartContent = Cart::content();
+        //dd($cartContent);
+        $data['cartContent'] = $cartContent;
+        return view('front.cart',$data);
+    }
+
+    public function updateCart(Request $request){
+        $rowId = $request->rowId;
+        $qty = $request->qty;
+
+        $itemInfo = Cart::get($rowId);
+        $product = Product::find($itemInfo->id);
+
+        if($product->track_qty == 'Yes'){
+            if($qty <= $product->qty){
+                Cart::update($rowId, $qty);
+                $message = 'Cart updated successfully';
+                $status = true;
+                session()->flash('success',$message);
+
+            } else{
+                $message = 'Request qty('.$qty.') not available in stock.';
+                $status = false;
+                session()->flash('error',$message);
+
+            }
+        } else {
+            Cart::update($rowId, $qty);
+            $message = 'Cart updated successfully';
+            $status = true;
+            session()->flash('success',$message);
+
+        }
+        return response()->json([
+            'status' => true,
+            'message' => $message
+        ]);
+    }
+
+    public function deleteItem(Request $request){
+        $itemInfo = Cart::get($request->rowId);
+
+        if($itemInfo == null){
+            $errorMessage = 'Item not found in cart';
+            session()->flash('error',$errorMessage);
+            return response()->json([
+                'status' => true,
+                'message' => $errorMessage
+            ]);
+        }
+
+        Cart::remove($request->rowId);
+
+        $message = 'Item removed from cart successfully.';
+        session()->flash('success',$message);
+        return response()->json([
+            'status' => true,
+            'message' => $message
+        ]);
+
     }
 
     public function checkout(){
-        return view('front.checkout');
+
+        // if cart is empty
+
+        if(Cart::count()==0){
+            return redirect()->route('front.cart');
+
+        }
+
+        //if user is not logged
+
+        if(Auth::check() == false){
+
+            if(!session()->has('url.intended')){
+                session(['url.intended' => url()->current()]);
+            }
+
+            return redirect()->route('account.login');
+        }
+
+        $customerAddress = CustomerAddress::where('user_id',Auth::user()->id)->first();
+
+        session()->forget('url.intended');
+
+        $countries = Country::orderBy('name','ASC')->get();
+
+        // calculate shipping here
+
+        if($customerAddress != ''){
+
+            $userCountry = $customerAddress->country_id;
+            $shippingInfo = ShippingCharge::where('country_id',$userCountry)->first();
+
+            $totalQty = 0;
+            $totalShippingCharge = 0;
+            $grandTotal = 0;
+            foreach(Cart::content() as $item){
+                $totalQty += $item->qty;
+            }
+
+            $totalShippingCharge = $totalQty*$shippingInfo->amount;
+
+            $grandTotal = Cart::subtotal(2,'.','')+$totalShippingCharge;
+
+        } else {
+            $grandTotal = Cart::subtotal(2,'.','');
+            $totalShippingCharge = 0;
+        }
+
+
+        return view('front.checkout',[
+            'countries' => $countries,
+            'customerAddress' => $customerAddress,
+            'totalShippingCharge' => $totalShippingCharge,
+            'grandTotal' => $grandTotal
+        ]);
+    }
+
+    public function processCheckout(Request $request){
+        $validator = Validator::make($request->all(),[
+
+            'first_name' => 'required|min:5',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'country' => 'required',
+            'address' => 'required|min:30',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+            'mobile' =>'required'
+        ]);
+
+            if($validator->fails()){
+                return response()->json([
+                    'message' => 'Please fix the errors',
+                    'status' => false,
+                    'errors' => $validator->errors()
+                ]);
+            }
+
+        //save user address
+        //$customerAddress = CustomerAddress::find();
+
+        $user = Auth::user();
+
+        CustomerAddress::updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'user_id' => $user->id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'country_id' => $request->country,
+                'address' => $request->address,
+                'apartment' => $request->apartment,
+                'city' => $request->city,
+                'state' => $request->state,
+                'zip' =>$request->zip,
+            ]
+        );
+
+        //store data in orders table
+
+        if($request->payment_method == 'cod'){
+
+            $discountCodeId = NULL;
+            $shipping = 0;
+            $discount = 0;
+            $subTotal = Cart::subtotal(2,'.','');
+            $grandTotal = $subTotal+$shipping;
+
+            //calculate shipping
+
+            $shippingInfo = ShippingCharge::where('country_id', $request->country)->first();
+
+            $totalQty = 0;
+            foreach(Cart::content() as $item){
+                $totalQty += $item->qty;
+            }
+
+            if ($shippingInfo != null) {
+
+                $shipping = $totalQty*$shippingInfo->amount;
+                $grandTotal = $subTotal+$shipping;
+
+            }else{
+                $shippingInfo = ShippingCharge::where('country_id', 'rest_of_world')->first();
+
+                $shipping = $totalQty*$shippingInfo->amount;
+                $grandTotal = $subTotal+$shipping;
+
+            }
+
+
+
+            $order = new Order;
+            $order->subtotal = $subTotal;
+            $order->shipping = $shipping;
+            $order->grand_total = $grandTotal;
+            $order->user_id = $user->id;
+            $order->payment_status = 'not paid';
+            $order->status = 'pendding';
+            $order->first_name = $request->first_name;
+            $order->last_name = $request->last_name;
+            $order->email = $request->email;
+            $order->mobile = $request->mobile;
+            $order->address = $request->address;
+            $order->apartment = $request->apartment;
+            $order->state = $request->state;
+            $order->city = $request->city;
+            $order->zip = $request->zip;
+            $order->notes = $request->notes;
+            $order->country_id = $request->country;
+            $order->save();
+
+
+            foreach(Cart::content() as $item){
+                $orderItem = new OrderItem;
+                $orderItem->product_id = $item->id;
+                $orderItem->order_id = $order->id;
+                $orderItem->name = $item->name;
+                $orderItem->qty = $item->qty;
+                $orderItem->price = $item->price;
+                $orderItem->total = $item->price * $item->qty;
+                $orderItem->save();
+            }
+            //Send Order Email
+            orderEmail($order->id);
+
+            session()->flash('success','You have successfully placed your order.');
+            Cart::destroy();
+
+            return response()->json([
+                    'message' => 'Order saved successfully',
+                    'orderId' => $order->id,
+                    'status' => true,
+                ]);
+
+        } else {
+
+        }
+
+    }
+
+    public function thankyou($id){
+        return view('front.thanks',[
+            'id' => $id
+        ]);
+    }
+
+    public function getOrderSummery(Request $request){
+
+        $subTotal = Cart::subtotal(2,'.','');
+
+        if ($request->country_id > 0) {
+
+            $shippingInfo = ShippingCharge::where('country_id', $request->country_id)->first();
+
+            $totalQty = 0;
+            foreach(Cart::content() as $item){
+                $totalQty += $item->qty;
+            }
+
+            if ($shippingInfo != null) {
+
+                $shippingCharge = $totalQty*$shippingInfo->amount;
+                $grandTotal = $subTotal+$shippingCharge;
+
+                return response()->json([
+                'status' => true,
+                'grandTotal'=> number_format($grandTotal,2),
+                'shippingCharge' =>number_format ($shippingCharge,2)
+                ]);
+            }else{
+                $shippingInfo = ShippingCharge::where('country_id', 'rest_of_world')->first();
+
+                $shippingCharge = $totalQty*$shippingInfo->amount;
+                $grandTotal = $subTotal+$shippingCharge;
+
+                return response()->json([
+                'status' => true,
+                'grandTotal'=> number_format($grandTotal,2),
+                'shippingCharge' =>number_format($shippingCharge,2)
+                ]);
+            }
+
+        } else {
+            return response()->json([
+                'status' => true,
+                'grandTotal'=> number_format($subTotal,2),
+                'shippingCharge' =>number_format (0,2)
+                ]);
+        }
     }
 }
-
-/* @extends('front.layout.app')
-
-@section('content')
-<section class="section-1">
-        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <!-- <img src="images/carousel-1.jpg" class="d-block w-100" alt=""> -->
-
-                    <picture>
-                        <source media="(max-width: 799px)" srcset="{{ asset('font-assets/images/carousel-1-m.jpg')}}" />
-                        <source media="(min-width: 800px)" srcset="{{ asset('font-assets/images/carousel-1.jpg')}}" />
-                        <img src="{{ asset('font-assets/images/carousel-1.jpg')}}" alt="" />
-                    </picture>
-
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3">
-                            <h1 class="display-4 text-white mb-3">Kids Fashion</h1>
-                            <p class="mx-md-5 px-5">Discover Trendy Threads for Your Little Fashionistas!</p>
-                            <a class="btn btn-outline-light py-2 px-4 mt-3" href="{{ route('front.shop')}}">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-
-
-                    <picture>
-                        <source media="(max-width: 799px)" srcset="{{ asset('font-assets/images/carousel-2-m.jpg')}}" />
-                        <source media="(min-width: 800px)" srcset="{{ asset('font-assets/images/carousel-2.jpg')}}" />
-                        <img src="{{ asset('font-assets/images/carousel-2.jpg')}}" alt="" />
-                    </picture>
-
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3">
-                            <h1 class="display-4 text-white mb-3">Womens Fashion</h1>
-                            <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                            <a class="btn btn-outline-light py-2 px-4 mt-3" href="#">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <!-- <img src="images/carousel-3.jpg" class="d-block w-100" alt=""> -->
-
-                    <picture>
-                        <source media="(max-width: 799px)" srcset="{{ asset('font-assets/images/carousel-3-m.jpg')}}" />
-                        <source media="(min-width: 800px)" srcset="{{ asset('font-assets/images/carousel-3.jpg')}}" />
-                        <img src="{{ asset('font-assets/images/carousel-3.jpg')}}" alt="" />
-                    </picture>
-
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3">
-                            <h1 class="display-4 text-white mb-3">Shop Online at Flat 70% off on Branded Clothes</h1>
-                            <p class="mx-md-5 px-5">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                            <a class="btn btn-outline-light py-2 px-4 mt-3" href="#">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
-    <section class="section-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="box shadow-lg">
-                        <div class="fa icon fa-check text-primary m-0 mr-3"></div>
-                        <h2 class="font-weight-semi-bold m-0">Quality Product</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 ">
-                    <div class="box shadow-lg">
-                        <div class="fa icon fa-shipping-fast text-primary m-0 mr-3"></div>
-                        <h2 class="font-weight-semi-bold m-0">Free Shipping</h2>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="box shadow-lg">
-                        <div class="fa icon fa-exchange-alt text-primary m-0 mr-3"></div>
-                        <h2 class="font-weight-semi-bold m-0">14-Day Return</h2>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-
-<div class="cat-card">
-
-    <div class="left">
-
-        @if ($category->image != "")
-        <img src="{{ asset('uploads/category/'.$category->image) }}" alt="" class="img-fluid">
-        @endif
-
-    </div>
-
-    <div class="right">
-
-        <div class="cat-data">
-
-            <h2>{{ $category->name }}</h2>
-
-            {{-- <p>100 Products</p> --}}
-
-        </div>
-    </div>
-</div>
-</div>
-
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @endif
-            </div>
-        </div>
-    </section>
-
-    <section class="section-4 pt-5">
-        <div class="container">
-            <div class="section-title">
-                <h2>Featured Products</h2>
-            </div>
-            <div class="row pb-3">
-                @if ($featuredProducts->isNotEmpty())
-                @foreach ($featuredProducts as $product)
-                @php
-                    $productImage = $product->product_images->first();
-                @endphp
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <div class="product-image position-relative">
-                            <a href="" class="product-img">
-
-                                @if (!empty($productImage->image))
-                                <img class="card-img-top" src="{{ asset('uploads/products/'.$productImage->image)}}"  >
-                                @else
-                                <img src="{{ asset('admin-asset/img/photo2.png')}}"  >
-                                @endif
-                            </a>
-                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                            <div class="product-action">
-                                <a class="btn btn-dark" href="#">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="product.php">{{  $product->title }}</a>
-                            <div class="price mt-2">
-                                <span class="h5"><strong>₹{{  $product->price }}</strong></span>
-                                @if ($product->compare_price > 0)
-                                <span class="h6 text-underline"><del>₹{{ $product->compare_price }}</del></span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @endif
-            </div>
-        </div>
-    </section>
-
-    <section class="section-4 pt-5">
-        <div class="container">
-            <div class="section-title">
-                <h2>Latest Produsts</h2>
-            </div>
-            <div class="row pb-3">
-                @if ($latestProducts->isNotEmpty())
-                @foreach ($latestProducts as $product)
-                @php
-                    $productImage = $product->product_images->first();
-                @endphp
-                <div class="col-md-3">
-                    <div class="card product-card">
-                        <div class="product-image position-relative">
-                            <a href="" class="product-img">
-
-                                @if (!empty($productImage->image))
-                                <img class="card-img-top" src="{{ asset('uploads/products/'.$productImage->image)}}"  >
-                                @else
-                                <img src="{{ asset('admin-asset/img/photo2.png')}}"  >
-                                @endif
-                            </a>
-                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
-
-                            <div class="product-action">
-                                <a class="btn btn-dark" href="#">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body text-center mt-3">
-                            <a class="h6 link" href="product.php">{{  $product->title }}</a>
-                            <div class="price mt-2">
-                                <span class="h5"><strong>₹{{  $product->price }}</strong></span>
-                                @if ($product->compare_price > 0)
-                                <span class="h6 text-underline"><del>₹{{ $product->compare_price }}</del></span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @endif
-            </div>
-        </div>
-    </section>
-
-@endsection */

@@ -10,9 +10,11 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
 use App\Http\Controllers\admin\BrandControler;
 use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\admin\SubCategoryController;
@@ -34,14 +36,31 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     return view('welcome');
 }); */
 
+    /* Route::get('/test', function () {
+        orderEmail(16);
+    }); */
+
     Route::get('/',[FrontController::class,'index'])->name('front.home');
     Route::get('/shop/{categorySlug?}/{subCategorySlug?}',[ShopController::class,'index'])->name('front.shop');
     Route::get('/product/{slug}',[ShopController::class,'product'])->name('front.product');
     Route::get('/cart',[CartController::class,'cart'])->name('front.cart');
+    Route::post('/add-to-cart',[CartController::class,'addToCart'])->name('front.addToCart');
+    Route::post('/update-cart',[CartController::class,'updateCart'])->name('front.updateCart');
+    Route::post('/delete-cart',[CartController::class,'deleteItem'])->name('front.deleteItem.cart');
+
+
+
+
+
 
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
-    Route::get('/send-contact-email',[FrontController::class,'sendContentEmail'])->name('front.sendContentEmail');
+    Route::post('/send-contact-email',[FrontController::class,'sendContentEmail'])->name('front.sendContentEmail');
     Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
+    Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
+    Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
+    Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('front.getOrderSummery');
+
+
 
 
     Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('front.forgotPassword');
@@ -60,8 +79,11 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
         });
         Route::group(['middleware' => 'auth'],function(){
             Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
+            Route::get('/my-order',[AuthController::class,'orders'])->name('account.orders');
+            Route::get('/order-details/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
             //Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
             Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
+            Route::get('/change-password',[AuthController::class,'changePassword'])->name('account.changePassword');
 
         });
     });
@@ -118,6 +140,13 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
     Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
 
+    //Shipping route
+    Route::get('/shipping/create',[ShippingController::class,'create'])->name('shpping.create');
+    Route::post('/shipping',[ShippingController::class,'store'])->name('shipping.store');
+    Route::get('/shipping/{id}',[ShippingController::class,'edit'])->name('shipping.edit');
+    Route::put('/shipping/{id}',[ShippingController::class,'update'])->name('shipping.update');
+    Route::delete('/shipping/{id}',[ShippingController::class,'destroy'])->name('shipping.delete');
+
 
     // Page routes
     Route::get('/pages',[PageController::class,'index'])->name('pages.index');
@@ -127,7 +156,10 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::put('/pages/{page}',[PageController::class,'update'])->name('pages.update');
     Route::delete('/pages/{page}',[PageController::class,'destroy'])->name('pages.delete');
 
-
+    //orders route
+    Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
+    Route::get('/orders/{id}',[OrderController::class,'detail'])->name('orders.detail');
+    Route::post('/order/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
 
 
     //setting-password

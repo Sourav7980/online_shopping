@@ -13,6 +13,8 @@
 		<link rel="stylesheet" href="{{ asset('admin-asset/plugins/dropzone/min/dropzone.min.css')}}">
 		<link rel="stylesheet" href="{{ asset('admin-asset/plugins/summernote/summernote.min.css')}}">
         <link rel="stylesheet" href="{{ asset('admin-asset/plugins/select2/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('admin-asset/css/datetimepicker.css')}}">
+
 
 		<link rel="stylesheet" href="{{ asset('admin-asset/css/custom.css')}}">
 
@@ -90,6 +92,8 @@
 		<script src="{{ asset('admin-asset/plugins/dropzone/min/dropzone.min.js')}}"></script>
 		<script src="{{ asset('admin-asset/plugins/summernote/summernote.min.js')}}"></script>
 		<script src="{{ asset('admin-asset/plugins/select2/js/select2.min.js')}}"></script>
+        <script src="{{ asset('admin-asset/js/datetimepicker.js')}}"></script>
+
 
 
 
