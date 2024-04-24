@@ -155,9 +155,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     //orders route
     Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
     Route::get('/orders/{id}',[OrderController::class,'detail'])->name('orders.detail');
-
-
-
+    Route::post('/order/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
 
 
     //setting-password

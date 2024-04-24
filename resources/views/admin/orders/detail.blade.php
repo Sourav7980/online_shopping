@@ -22,6 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-9">
+                    @include('admin.message')
                     <div class="card">
                         <div class="card-header pt-3">
                             <div class="row invoice-info">
@@ -34,6 +35,12 @@
                                     Phone: {{ $order->mobile }}<br>
                                     Email: {{ $order->email }}
                                 </address>
+                                <strong>Shipped Date:</strong>
+                                @if (!empty($order->shipped_date))
+                                    {{ \Carbon\Carbon::parse($order->shipped_date)->format('d M, Y')}}
+                                @else
+                                    n/a
+                                @endif
                                 </div>
 
 
@@ -48,8 +55,10 @@
                                         <span class="text-danger">Pending</span>
                                         @elseif ($order->status == 'shipped')
                                         <span class="text-info">Shipped</span>
-                                        @else
+                                        @elseif($order->status == 'delivered')
                                         <span class="text-success">Delivered</span>
+                                        @else
+                                        <span class="text-danger">Cancelled</span>
                                         @endif
 
                                     <br>
@@ -100,20 +109,26 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
+                        <form action="" method="post" name="changeStatusOrderForm" id="changeStatusOrderForm">
                         <div class="card-body">
                             <h2 class="h4 mb-3">Order Status</h2>
                             <div class="mb-3">
                                 <select name="status" id="status" class="form-control">
-                                    <option value="" {{ ($order->status == 'pendding') ? 'selected' : ''}}>Pending</option>
-                                    <option value="" {{ ($order->status == 'shipped') ? 'selected' : ''}}>Shipped</option>
-                                    <option value="" {{ ($order->status == 'delivered') ? 'selected' : ''}}>Delivered</option>
-                                    {{-- <option value="">Cancelled</option> --}}
+                                    <option value="pendding" {{ ($order->status == 'pendding') ? 'selected' : ''}}>Pending</option>
+                                    <option value="shipped" {{ ($order->status == 'shipped') ? 'selected' : ''}}>Shipped</option>
+                                    <option value="delivered" {{ ($order->status == 'delivered') ? 'selected' : ''}}>Delivered</option>
+                                    <option value="cancelled" {{ ($order->status == 'cancelled') ? 'selected' : ''}}>Cancelled</option>
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="">Shipped Date</label>
+                                <input placeholder="Shipped Date" value="{{ $order->shipped_date}}" id="shipped_date" name="shipped_date" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary">Update</button>
                             </div>
                         </div>
+                    </form>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -135,4 +150,28 @@
         <!-- /.card -->
     </section>
     <!-- /.content -->
+@endsection
+
+@section('customJs')
+<script>
+    $(document).ready(function(){
+        $('#shipped_date').datetimepicker({
+            format: 'Y-m-d H:i:s',
+        });
+    });
+
+    $("#changeStatusOrderForm").submit(function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: '{{ route("orders.changeOrderStatus",$order->id)}}',
+            type: 'post',
+            data: $(this).serializeArray(),
+            dataType: 'json',
+            success: function(response){
+                window.location.href= '{{route("orders.detail",$order->id)}}';
+            }
+        });
+    });
+</script>
 @endsection

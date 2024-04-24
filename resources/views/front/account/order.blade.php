@@ -48,8 +48,10 @@
                                                 <span class="badge bg-danger">Pending</span>
                                                 @elseif($order->status == 'shipped')
                                                 <span class="badge bg-info">Shipped</span>
-                                                @else
+                                                @elseif($order->status == 'delivered')
                                                 <span class="badge bg-success">Delivered</span>
+                                                @else
+                                                <span class="badge bg-danger">Cancelled</span>
                                                 @endif
 
                                             </td>
