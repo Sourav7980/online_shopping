@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- Content Header (Page header) -->
-<section class="content-header">					
+<section class="content-header">
 	<div class="container-fluid my-2">
 		<div class="row mb-2">
 			<div class="col-sm-6">
@@ -22,34 +22,34 @@
 	<div class="container-fluid">
 		<form action="" method="post" id="discountFrom" name="discountFrom" >
 		<div class="card">
-			<div class="card-body">								
+			<div class="card-body">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="mb-3">
 							<label for="name">Code</label>
 							<input type="text" name="code" id="code" class="form-control" placeholder="Coupon Code">
-							<p></p>	
+							<p></p>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="mb-3">
 							<label for="slug">Name</label>
-							<input type="text" name="name" id="name" class="form-control" placeholder="Coupon Code Name">	
+							<input type="text" name="name" id="name" class="form-control" placeholder="Coupon Code Name">
 							<p></p>
 						</div>
 					</div>
-					
+
                     <div class="col-md-6">
 						<div class="mb-3">
 							<label for="slug">Max Uses</label>
-							<input type="number" name="max_uses" id="max_uses" class="form-control" placeholder="Max Uses">	
+							<input type="number" name="max_uses" id="max_uses" class="form-control" placeholder="Max Uses">
 							<p></p>
 						</div>
 					</div>
                     <div class="col-md-6">
 						<div class="mb-3">
                     <label for="slug">Max Uses User</label>
-							<input type="text" name="max_uses_uses" id="max_uses_uses" class="form-control" placeholder="Max Uses User">	
+							<input type="text" name="max_uses_user" id="max_uses_user" class="form-control" placeholder="Max Uses User">
 							<p></p>
 						</div>
 					</div>
@@ -60,13 +60,13 @@
 							<select name="type" id="type" class="form-control">
 								<option value="percent">Percent</option>
 								<option value="fixed">Fixed</option>
-							</select>	
+							</select>
 						</div>
 					</div>
                     <div class="col-md-6">
 						<div class="mb-3">
                     <label for="slug">Discount Amount</label>
-							<input type="text" name="discount_amount" id="discount_amount" class="form-control" placeholder="Discount Amount">	
+							<input type="text" name="discount_amount" id="discount_amount" class="form-control" placeholder="Discount Amount">
 							<p></p>
 						</div>
 					</div>
@@ -74,10 +74,10 @@
                     <div class="col-md-6">
 						<div class="mb-3">
                     <label for="slug">Min Amount</label>
-							<input type="text" name="min_amount" id="min_amount" class="form-control" placeholder="Min Amount">	
+							<input type="text" name="min_amount" id="min_amount" class="form-control" placeholder="Min Amount">
 							<p></p>
 						</div>
-					</div>    
+					</div>
 
 					<div class="col-md-6">
 						<div class="mb-3">
@@ -85,25 +85,25 @@
 							<select name="status" id="status" class="form-control">
 								<option value="1">Active</option>
 								<option value="0">Block</option>
-							</select>	
+							</select>
 						</div>
 					</div>
-                    
+
                     <div class="col-md-6">
 						<div class="mb-3">
                     <label for="slug">Starts At</label>
-							<input type="text" name="starts_at" id="starts_at" class="form-control" placeholder="Starts At">	
+							<input type="text" name="starts_at" id="starts_at" class="form-control" placeholder="Starts At">
 							<p></p>
 						</div>
-					</div>    
+					</div>
 
                     <div class="col-md-6">
 						<div class="mb-3">
                     <label for="slug">Expires At</label>
-							<input type="text" name="expires_at" id="expires_at" class="form-control" placeholder="Expires At">	
+							<input type="text" name="expires_at" id="expires_at" class="form-control" placeholder="Expires At">
 							<p></p>
 						</div>
-					</div>    
+					</div>
 
                     <div class="col-md-6">
 						<div class="md-3">
@@ -114,7 +114,7 @@
 					</div>
 
 				</div>
-			</div>							
+			</div>
 		</div>
 		<div class="pb-5 pt-3">
 			<button type= "submit" class="btn btn-primary">Create</button>

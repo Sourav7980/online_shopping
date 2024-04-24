@@ -17,7 +17,7 @@ class DiscountCodeController extends Controller
     public function create(){
         return view('admin.coupon.create');
     }
-    
+
 
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
@@ -28,15 +28,15 @@ class DiscountCodeController extends Controller
         ]);
 
         if ($validator->passes()) {
-            
+
             //starting date must be greator than current date
             if(!empty($request->starts_at)){
                 $now =  Carbon::now();
                 $startsAt = Carbon::createFromFormat('Y-m-d H:i:s',$request->starts_at);
-            
+
                 if (!empty($request->starts_at)) {
                     $starts_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->starts_at);
-                
+
                     if ($starts_at->lte(Carbon::now()) == true) {
                         return response()->json([
                             'status' => false,
@@ -44,11 +44,11 @@ class DiscountCodeController extends Controller
                         ]);
                     }
                 }
-                
+
                 if (!empty($request->starts_at) &&!empty($request->expires_at)) {
                     $ends_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->expires_at);
                     $starts_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->starts_at);
-                
+
                     if ($ends_at->gt($starts_at) == false) {
                         return response()->json([
                             'status' => false,
@@ -69,13 +69,11 @@ class DiscountCodeController extends Controller
                 $discountCode ->status = $request->status;
                 $discountCode ->starts_at = $request->starts_at;
                 $discountCode ->expires_at = $request->expires_at;
-                $discountCode ->created_at = $request->created_at;
-                $discountCode ->updated_at = $request->updated_at;
                 $discountCode ->save();
-                
+
                 $message = 'Discount coupon added successfully.';
                 session()->flash('success', $message);
-                
+
                 return response()->json([
                     'status' => true,
                     'message' => 'Discount coupon added successfully.'
