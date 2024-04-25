@@ -10,7 +10,7 @@
 								<h1>Discount Coupons</h1>
 							</div>
 							<div class="col-sm-6 text-right">
-								<a href="{{ route('categories.create')}}" class="btn btn-primary">New Category</a>
+								<a href="{{ route('coupons.create')}}" class="btn btn-primary">New Discount Coupon</a>
 							</div>
 						</div>
 					</div>
@@ -25,7 +25,7 @@
 						<div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <button type="button" onclick="window.location.href='{{route("categories.index")}}'" class="btn btn-default btn-sm">Reset</button>
+                                    <button type="button" onclick="window.location.href='{{route("coupons.index")}}'" class="btn btn-default btn-sm">Reset</button>
                                 </div>
 								<div class="card-tools">
 									<div class="input-group input-group" style="width: 250px;">
@@ -46,8 +46,11 @@
 									<thead>
 										<tr>
 											<th width="60">ID</th>
+											<th>Code</th>
 											<th>Name</th>
-											<th>Slug</th>
+                                            <th>Discount</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
 											<th width="100">Status</th>
 											<th width="100">Action</th>
 										</tr>
@@ -60,6 +63,15 @@
 											<td>{{ $discountCoupons->id }}</td>
 											<td>{{ $discountCoupons->code }}</td>
 											<td>{{ $discountCoupons->name }}</td>
+                                            <td>
+                                                @if ($discountCoupons->type == 'percent')
+                                                    {{ $discountCoupons->discount_amount }}%
+                                                @else
+                                                    ₹{{ $discountCoupons->discount_amount }}  
+                                                @endif
+                                            </td> 
+                                            <td>{{ (!empty($discountCoupons->starts_at)) ? \Carbon\Carbon::parse($discountCoupons->starts_at)->format('Y/m/d H:i:s') : '' }}</td>
+                                            <td>{{ (!empty($discountCoupons->expires_at)) ? \Carbon\Carbon::parse($discountCoupons->expires_at)->format('Y/m/d H:i:s') : '' }}</td></td>
 											<td>
                                                 @if($discountCoupons->status==1)
 												<svg class="text-success-500 h-6 w-6 text-success" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
@@ -85,6 +97,7 @@
 											</td>
 										    </tr>
                                         @endforeach
+                                        @endif
                                         @else
                                         <tr>
                                             <td colspan="5">Record Not Found</td>
