@@ -126,12 +126,12 @@
                                                 <img
                                                     src="{{ asset('uploads/products/' . $productImage->image) }}">
                                             @else
-                                                <img 
+                                                <img
                                                     src="{{ asset('admin-asset/img/photo2.png') }}">
                                             @endif
                                             </a>
 
-                                            <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+                                            <a onclick="addToWishlist({{ $product->id }})" class="whishlist" href="javascript:void(0);"><i class="far fa-heart"></i></a>
 
                                             <div class="product-action">
                                                 <a class="btn btn-dark" href="javascript:void(0);" onclick="addToCart({{ $product->id }});">

@@ -50,16 +50,13 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::post('/delete-cart',[CartController::class,'deleteItem'])->name('front.deleteItem.cart');
 
 
-
-
-
-
     Route::get('/page/{slug}',[FrontController::class,'page'])->name('front.page');
     Route::post('/send-contact-email',[FrontController::class,'sendContentEmail'])->name('front.sendContentEmail');
     Route::get('/checkout',[CartController::class,'checkout'])->name('front.checkout');
     Route::post('/process-checkout',[CartController::class,'processCheckout'])->name('front.processCheckout');
     Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
     Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('front.getOrderSummery');
+    Route::post('/add-to-wishlist',[FrontController::class,'addToWishlist'])->name('front.addToWishlist');
 
 
 
@@ -81,6 +78,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
         Route::group(['middleware' => 'auth'],function(){
             Route::get('/profile',[AuthController::class,'profile'])->name('account.profile');
             Route::get('/my-order',[AuthController::class,'orders'])->name('account.orders');
+            Route::get('/my-wishlist',[AuthController::class,'wishlist'])->name('account.wishlist');
+            Route::post('/remove-product-wishlist',[AuthController::class,'removeProductWishlist'])->name('account.removeProductWishlist');
             Route::get('/order-details/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
             //Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
             Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');

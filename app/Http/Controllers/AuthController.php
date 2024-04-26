@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Wishlist;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class AuthController extends Controller
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password],$request->get('remember'))){
 
                 if(session()->has('url.intended')){
-                    return redirect (session()->get('url.intended'));
+                    return redirect(session()->get('url.intended'));
                 }
 
                 return redirect()->route('account.profile');
@@ -136,5 +137,28 @@ class AuthController extends Controller
         return view('front.account.change-password');
     }
 
+    public function wishlist(){
+        $wishlists = Wishlist::where('user_id', Auth::user()->id)->get();
+        $data = [];
+        $data['wishlists'] = $wishlists;
+        return view('front.account.wishlist',$data);
+    }
+
+    public function removeProductWishlist(Request $request){
+        $wishlist = Wishlist::where('user_id',Auth::user()->id)->where('product_id',$request->id)->first();
+
+        if($wishlist == null){
+            session()->flash('error','Product already remove');
+            return response()->json([
+                'status' => true,
+            ]);
+        } else {
+            Wishlist::where('user_id',Auth::user()->id)->where('product_id',$request->id)->delete();
+            session()->flash('success','Product remove successfully');
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+    }
 
 }
