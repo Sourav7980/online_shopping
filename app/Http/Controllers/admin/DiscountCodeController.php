@@ -95,4 +95,11 @@ class DiscountCodeController extends Controller
         }
 
         }
+        public function edit(Request $request) {
+
+        }
+
+        public function update() {
+
+        }
 }
