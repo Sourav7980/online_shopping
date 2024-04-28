@@ -115,12 +115,9 @@
                                 @php
                                     $productImage = $product->product_images->first();
                                 @endphp
-
-
                                 <div class="col-md-4">
                                     <div class="card product-card">
                                         <div class="product-image position-relative">
-
                                             <a href="{{ route("front.product",$product->slug) }}" class="product-img">
                                             @if (!empty($productImage->image))
                                                 <img
@@ -130,7 +127,6 @@
                                                     src="{{ asset('admin-asset/img/photo2.png') }}">
                                             @endif
                                             </a>
-
                                             <a onclick="addToWishlist({{ $product->id }})" class="whishlist" href="javascript:void(0);"><i class="far fa-heart"></i></a>
 
                                             <div class="product-action">
@@ -165,8 +161,6 @@
                                 </div>
                             @endforeach
                         @endif
-
-
                         <div class="col-md-12 pt-5">
                             {{ $products->withQueryString()->links() }}
                         </div>

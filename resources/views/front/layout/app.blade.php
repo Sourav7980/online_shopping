@@ -63,13 +63,13 @@
 				<a href="{{ route('account.profile')}}" class="nav-link text-dark">My Account</a>
                 @else
                 <a href="{{ route('account.login')}}" class="nav-link text-dark">Login/Register</a>
-                @endif
-				<form action="">
+                @endif 
+				<form action="{{ route('front.shop')}}" method="get">
 					<div class="input-group">
-						<input type="text" placeholder="Search For Products" class="form-control" aria-label="Amount (to the nearest dollar)">
-						<span class="input-group-text">
+						<input value="{{ Request::get('search') }}" type="text" placeholder="Search For Products" class="form-control" name="search ">
+						<button type="submit" class="input-group-text">
 							<i class="fa fa-search"></i>
-					  	</span>
+                        </button>
 					</div>
 				</form>
 			</div>

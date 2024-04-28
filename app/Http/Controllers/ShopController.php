@@ -49,6 +49,10 @@ class ShopController extends Controller
             }
         }
 
+        if(!empty($request->get('search'))){
+            $products = $products->where('title','like','%'.$request->get('search').'%');
+        }
+
         /* $subCategorySelected = $subCategory->id; */
 
         if($request->get('sort') != ''){
