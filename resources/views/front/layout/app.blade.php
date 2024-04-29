@@ -63,7 +63,7 @@
 				<a href="{{ route('account.profile')}}" class="nav-link text-dark">My Account</a>
                 @else
                 <a href="{{ route('account.login')}}" class="nav-link text-dark">Login/Register</a>
-                @endif 
+                @endif
 				<form action="{{ route('front.shop')}}" method="get">
 					<div class="input-group">
 						<input value="{{ Request::get('search') }}" type="text" placeholder="Search For Products" class="form-control" name="search ">
@@ -184,9 +184,9 @@
 	</div>
 </footer>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+{{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Launch demo modal
-  </button>
+  </button> --}}
 
   <!-- Modal -->
   <div class="modal fade" id="wishlistModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

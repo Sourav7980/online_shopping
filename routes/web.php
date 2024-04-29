@@ -86,7 +86,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
             Route::get('/order-details/{orderId}',[AuthController::class,'orderDetail'])->name('account.orderDetail');
             //Route::post('/login',[AuthController::class,'authenticate'])->name('account.authenticate');
             Route::get('/logout',[AuthController::class,'logout'])->name('account.logout');
-            Route::get('/change-password',[AuthController::class,'changePassword'])->name('account.changePassword');
+            Route::get('/change-password',[AuthController::class,'showChangePasswordForm'])->name('account.changePassword');
+            Route::post('/process-change-password',[AuthController::class,'changePassword'])->name('account.processChangePassword');
 
         });
     });
