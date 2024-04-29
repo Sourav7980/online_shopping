@@ -8,9 +8,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\admin\HomeControler;
-use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\BrandControler;
 use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SettingController;
@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\admin\SubCategoryController;
+use App\Http\Controllers\admin\DiscountCodeController;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
 
@@ -164,6 +165,13 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::post('/order/change-status/{id}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
     Route::post('/order/send-email/{id}',[OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
 
+    //users route
+    Route::get('/users',[UserController::class,'index'])->name('users.index');
+    Route::get('/users/create',[UserController::class,'create'])->name('users.create');
+    Route::post('/users',[UserController::class,'store'])->name('users.store');
+    //Route::get('/brands/{brand}/edit',[BrandController::class,'edit'])->name('brands.edit');
+    //Route::put('/brands/{brand}',[BrandController::class,'update'])->name('brands.update');
+    //Route::delete('/brands/{brand}',[BrandController::class,'destory'])->name('brands.delete');
 
     //Coupon Code Routes
     Route::get('/coupons',[DiscountCodeController::class,'index'])->name('coupons.index');
