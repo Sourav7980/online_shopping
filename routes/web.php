@@ -176,7 +176,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     //Coupon Code Routes
     Route::get('/coupons',[DiscountCodeController::class,'index'])->name('coupons.index');
     Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
-    Route::post('/coupons/',[DiscountCodeController::class,'store'])->name('coupons.store');
+    Route::post('/coupons',[DiscountCodeController::class,'store'])->name('coupons.store');
     Route::get('/coupons/{coupon}/edit',[DiscountCodeController::class,'edit'])->name('coupons.edit');
     //Route::put('/products/{product}',[ProductController::class,'update'])->name('products.update');
     //Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
