@@ -178,11 +178,8 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/coupons/create',[DiscountCodeController::class,'create'])->name('coupons.create');
     Route::post('/coupons',[DiscountCodeController::class,'store'])->name('coupons.store');
     Route::get('/coupons/{coupon}/edit',[DiscountCodeController::class,'edit'])->name('coupons.edit');
-    //Route::put('/products/{product}',[ProductController::class,'update'])->name('products.update');
-    //Route::delete('/products/{product}',[ProductController::class,'destory'])->name('products.delete');
-    //Route::get('/product-subcategories',[ProductSubCategoryController::class,'index'])->name('product-subcategories.index');
-    //Route::post('/product-images/update',[ProductImageController::class,'update'])->name('product-images.update');
-    //Route::get('/get-products',[ProductController::class,'getProducts'])->name('products.getProducts');
+    Route::put('/coupons/{coupon}',[DiscountCodeController::class,'update'])->name('coupons.update');
+    Route::delete('/coupons/{coupon}',[DiscountCodeController::class,'destory'])->name('coupons.delete');
 
 
     //setting-password
