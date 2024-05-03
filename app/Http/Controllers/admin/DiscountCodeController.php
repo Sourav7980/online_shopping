@@ -96,10 +96,10 @@ class DiscountCodeController extends Controller
         }
 
         }
-        public function edit(Request $request) {
+        public function edit(Request $request, $id) {
 
         $coupon = DiscountCoupon::find($id);
-        
+
         if ($coupon == null){
             session()->flash('error','Record not found');
             return redirect()->route('coupons.index');
@@ -114,12 +114,12 @@ class DiscountCodeController extends Controller
             $discountCode = DiscountCoupon::find($id);
 
             if($discountCode == null) {
-               session()->flash('error','Record not found') 
+               session()->flash('error','Record not found') ;
+
                 return response()->json([
                     'status' => true
-                ]); 
+                ]);
             }
-        }
 
             $validator = Validator::make($request->all(),[
                 'code' => 'required',
@@ -127,21 +127,20 @@ class DiscountCodeController extends Controller
                 'discount_amount' => 'required|numeric',
                 'status' => 'required',
             ]);
-    
-            if ($validator->passes())
-    
-                 
-    
+
+                if ($validator->passes()){
+
                     if (!empty($request->starts_at) &&!empty($request->expires_at)){
                         $ends_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->expires_at);
                         $starts_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->starts_at);
-    
+
                         if ($ends_at->gt($starts_at) == false) {
                             return response()->json([
                                 'status' => false,
                                 'errors' => ['expires_at' => 'End date must be greater than start date']
                             ]);
-
+                        }
+                    }
 
                     $discountCode ->code = $request->code;
                     $discountCode ->name = $request->name;
@@ -155,10 +154,10 @@ class DiscountCodeController extends Controller
                     $discountCode ->starts_at = $request->starts_at;
                     $discountCode ->expires_at = $request->expires_at;
                     $discountCode ->save();
-    
+
                     $message = 'Discount coupon added successfully.';
                     session()->flash('success', $message);
-    
+
                     return response()->json([
                         'status' => true,
                         'message' => 'Discount coupon added successfully.'
@@ -168,23 +167,28 @@ class DiscountCodeController extends Controller
                     'status' => false,
                     'errors' => $validator->errors()
                 ]);
-    
-            public function destory() {
-                $discountCode = DiscountCoupon::find($id);
 
-                if($discountCode == null) {
-                   session()->flash('error','Record not found') 
-                    return response()->json([
-                        'status' => true
-                    ]);   
             }
+}
 
-            $discountCode->delete();
 
-            session()->flash('success','Discount Coupon deleted successfully.'); 
+
+    public function destory($id) {
+        $discountCode = DiscountCoupon::find($id);
+
+        if($discountCode == null) {
+            session()->flash('error','Record not found');
             return response()->json([
                 'status' => true
             ]);
-
-        }
     }
+
+    $discountCode->delete();
+
+    session()->flash('success','Discount Coupon deleted successfully.');
+    return response()->json([
+        'status' => true
+    ]);
+
+}
+}

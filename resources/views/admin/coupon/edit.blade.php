@@ -42,14 +42,14 @@
                     <div class="col-md-6">
 						<div class="mb-3">
 							<label for="slug">Max Uses</label>
-							<input value="{{ $coupon->Max Uses }}" type="number" name="max_uses" id="max_uses" class="form-control" placeholder="Max Uses">
+							<input value="{{ $coupon->max_uses }}" type="number" name="max_uses" id="max_uses" class="form-control" placeholder="Max Uses">
 							<p></p>
 						</div>
 					</div>
                     <div class="col-md-6">
 						<div class="mb-3">
                     <label for="slug">Max Uses User</label>
-							<input value="{{ $coupon->Max Uses User }}" type="text" name="max_uses_user" id="max_uses_user" class="form-control" placeholder="Max Uses User">
+							<input value="{{ $coupon->max_uses_user }}" type="text" name="max_uses_user" id="max_uses_user" class="form-control" placeholder="Max Uses User">
 							<p></p>
 						</div>
 					</div>
