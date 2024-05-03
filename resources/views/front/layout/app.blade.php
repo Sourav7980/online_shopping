@@ -54,23 +54,23 @@
 		<div class="row align-items-center py-3 d-none d-lg-flex justify-content-between">
 			<div class="col-lg-4 logo">
 				<a href="{{ route('front.home')}}" class="text-decoration-none">
-					<span class="h1 text-uppercase text-primary bg-dark px-2">Online</span>
-					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">SHOP</span>
+					{{-- <span class="h1 text-uppercase text-primary bg-dark px-2">Online</span> --}}
+					<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Online SHOP</span>
 				</a>
 			</div>
 			<div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
                 @if (Auth::check())
 				<a href="{{ route('account.profile')}}" class="nav-link text-dark">My Account</a>
                 @else
-                <a href="{{ route('account.login')}}" class="nav-link text-dark">Login/Register</a>
+                <a href="{{ route('account.login')}}" class="nav-link text-dark"><h5>Login/Register</h5></a>
                 @endif
 				<form action="{{ route('front.shop')}}" method="get">
-					<div class="input-group">
+					{{-- <div class="input-group">
 						<input value="{{ Request::get('search') }}" type="text" placeholder="Search For Products" class="form-control" name="search ">
 						<button type="submit" class="input-group-text">
 							<i class="fa fa-search"></i>
                         </button>
-					</div>
+					</div> --}}
 				</form>
 			</div>
 		</div>
