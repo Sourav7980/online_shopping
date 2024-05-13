@@ -33,6 +33,7 @@ class AuthController extends Controller
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:5|confirmed'
+
         ]);
 
         if($validator->passes()){
@@ -74,7 +75,14 @@ class AuthController extends Controller
                     return redirect(session()->get('url.intended'));
                 }
 
-                return redirect()->route('account.profile');
+                /* session()->flash('success','You login successfully');
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login successfully'
+                ]); */
+
+                return redirect()->route('account.profile')->with('success','You login successfully');
 
             }else{
                 //session()->flash('error','Either email/password is incorrect.');

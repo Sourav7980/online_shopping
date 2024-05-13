@@ -19,13 +19,20 @@
             <div class="col-md-5">
                 <div id="product-carousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner bg-light">
-                        @if($product->product_image)
-                        @foreach ($product->product_image as $key => $productImage)
-                        <div class="carousel-item" {{ ($key == 0) ? 'active' : ''}}>
-                            <img class="w-100 h-100" src="{{ asset('uploads/products/' . $productImage->image) }}" alt="Image">
-                        </div>
+                        @if($product->product_images)
+                        @foreach ($product->product_images as $key => $productImage)
+                            <div class="carousel-item {{ ($key == 0) ? 'active' : ''}}">
+                                <img class="w-100 h-100" src="{{ asset('uploads/products/'.$productImage->image) }}" alt="Image">
+                            </div>
                         @endforeach
                         @endif
+
+                       {{--  @if (!empty($productImage->image))
+                            <img
+                                src="{{ asset('uploads/products/' . $productImage->image) }}">
+                        @else
+                            <img src="{{ asset('admin-asset/img/photo2.png') }}">
+                        @endif --}}
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-bs-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>

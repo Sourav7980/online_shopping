@@ -62,15 +62,15 @@
                 @if (Auth::check())
 				<a href="{{ route('account.profile')}}" class="nav-link text-dark">My Account</a>
                 @else
-                <a href="{{ route('account.login')}}" class="nav-link text-dark"><h5>Login/Register</h5></a>
+                <a href="{{ route('account.login')}}" class="nav-link text-dark"><h6>Login/Register</h6></a>
                 @endif
 				<form action="{{ route('front.shop')}}" method="get">
-					{{-- <div class="input-group">
+					<div class="input-group">
 						<input value="{{ Request::get('search') }}" type="text" placeholder="Search For Products" class="form-control" name="search ">
 						<button type="submit" class="input-group-text">
 							<i class="fa fa-search"></i>
                         </button>
-					</div> --}}
+					</div>
 				</form>
 			</div>
 		</div>
@@ -134,10 +134,12 @@
 			<div class="col-md-4">
 				<div class="footer-card">
 					<h3>Get In Touch</h3>
-					<p>No dolore ipsum accusam no lorem. <br>
-					123 Street, New York, USA <br>
-					exampl@example.com <br>
-					000 000 0000</p>
+					<p>
+                        Sector 5, Salt Lake City <br>
+                        700001 , kolkata <br>
+                        (+91) 555-2368 <br>
+                        shopping@gmail.com
+                    </p>
 				</div>
 			</div>
 

@@ -131,16 +131,6 @@ $("#subCategoryForm").submit(function(event){
 						.removeClass('invalid-feedback').html("");
 					}
 
-					if(errors['slug']){
-						$("#slug").addClass('is-invalid')
-						.siblings('p')
-						.addClass('invalid-feedback').html(errors['slug']);
-					}else{
-						$("#slug").removeClass('is-invalid')
-						.siblings('p')
-						.removeClass('invalid-feedback').html("");
-					}
-
 
 					if(errors['slug']){
 						$("#slug").addClass('is-invalid')
@@ -157,7 +147,7 @@ $("#subCategoryForm").submit(function(event){
 						.siblings('p')
 						.addClass('invalid-feedback').html(errors['category']);
 					}else{
-						$("#slug").removeClass('is-invalid')
+						$("#category").removeClass('is-invalid')
 						.siblings('p')
 						.removeClass('invalid-feedback').html("");
 					}
