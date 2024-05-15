@@ -58,6 +58,9 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
     Route::get('/thanks/{orderId}',[CartController::class,'thankyou'])->name('front.thankyou');
     Route::post('/get-order-summery',[CartController::class,'getOrderSummery'])->name('front.getOrderSummery');
     Route::post('/add-to-wishlist',[FrontController::class,'addToWishlist'])->name('front.addToWishlist');
+    Route::post('/apply-discount',[CartController::class,'applyDiscount'])->name('front.applyDiscount');
+    Route::post('/remove-discount',[CartController::class,'removeCoupon'])->name('front.removeCoupon');
+
 
 
     Route::get('/forgot-password',[AuthController::class,'forgotPassword'])->name('front.forgotPassword');

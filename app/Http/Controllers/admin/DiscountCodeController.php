@@ -173,7 +173,7 @@ class DiscountCodeController extends Controller
 
 
 
-    public function destory($id) {
+    public function destory(Request $request, $id) {
         $discountCode = DiscountCoupon::find($id);
 
         if($discountCode == null) {
